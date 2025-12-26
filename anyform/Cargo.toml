@@ -26,7 +26,7 @@ tera = ["dep:tera"]
 handlers = []
 router = ["handlers"]
 admin = ["handlers"]
-cli = ["dep:clap", "dep:glob", "dep:tokio", "dep:anyhow", "full"]
+cli = ["dep:clap", "dep:glob", "dep:tokio", "dep:anyhow", "dep:tower-http", "full"]
 full = ["json", "tera", "handlers", "router", "admin"]
 
 [dependencies]
@@ -70,6 +70,7 @@ clap = { workspace = true, optional = true }
 glob = { version = "0.3", optional = true }
 tokio = { workspace = true, features = ["rt-multi-thread", "macros"], optional = true }
 anyhow = { workspace = true, optional = true }
+tower-http = { version = "0.6", features = ["cors"], optional = true }
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
