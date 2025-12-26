@@ -1,0 +1,66 @@
+[package]
+name = "axum-sea-forms"
+description = "Database-driven dynamic forms for Axum and SeaORM"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+readme = "../README.md"
+
+[features]
+default = ["json", "tera"]
+json = []
+tera = ["dep:tera"]
+handlers = []
+router = ["handlers"]
+admin = ["handlers"]
+full = ["json", "tera", "handlers", "router", "admin"]
+
+[dependencies]
+# Web framework
+axum = { workspace = true }
+axum-extra = { workspace = true }
+tower = { workspace = true }
+tower-sessions = { workspace = true, optional = true }
+http = { workspace = true }
+
+# Database
+sea-orm = { workspace = true }
+
+# Templating (optional)
+tera = { workspace = true, optional = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Utilities
+uuid = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+async-trait = { workspace = true }
+tracing = { workspace = true }
+
+# Validation & conditions
+regex = { workspace = true }
+evalexpr = { workspace = true }
+
+# Shared types
+axum-sea-forms-core = { workspace = true }
+
+# Form parsing
+form_urlencoded = "1.2"
+
+# Migrations (for re-export)
+migration = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
+pretty_assertions = "1.4"
+insta = { version = "1.42", features = ["yaml", "json"] }
+tempfile = "3"
+tower = { workspace = true, features = ["util"] }
+http-body-util = "0.1"

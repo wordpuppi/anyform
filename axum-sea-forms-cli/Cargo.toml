@@ -1,0 +1,39 @@
+[package]
+name = "axum-sea-forms-cli"
+description = "CLI tool for axum-sea-forms"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "asf"
+path = "src/main.rs"
+
+[dependencies]
+axum-sea-forms = { workspace = true, features = ["full"] }
+migration = { workspace = true }
+
+# Web framework (for serve command)
+axum = { workspace = true }
+
+# Database
+sea-orm = { workspace = true }
+sea-orm-migration = { workspace = true }
+
+# CLI
+clap = { workspace = true }
+
+# Async runtime
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Utilities
+uuid = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+glob = "0.3"

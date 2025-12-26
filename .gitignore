@@ -1,0 +1,9 @@
+/target
+Cargo.lock
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+.DS_Store
+.idea/
+.vscode/

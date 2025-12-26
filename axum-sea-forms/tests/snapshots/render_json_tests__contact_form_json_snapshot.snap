@@ -1,0 +1,85 @@
+---
+source: axum-sea-forms/tests/render_json_tests.rs
+expression: json
+---
+{
+  "description": "Get in touch with us",
+  "id": "[ID]",
+  "name": "Contact Form",
+  "settings": {
+    "allow_partial_save": false,
+    "is_quiz": false,
+    "show_answers": false,
+    "show_progress": false,
+    "submit_label": "Send",
+    "success_message": "Thank you for your message!"
+  },
+  "slug": "contact-snapshot",
+  "steps": [
+    {
+      "fields": [
+        {
+          "field_type": "text",
+          "id": "[FIELD_ID]",
+          "label": "Your Name",
+          "name": "name",
+          "options": null,
+          "order": 0,
+          "placeholder": "John Doe",
+          "required": true
+        },
+        {
+          "field_type": "email",
+          "id": "[FIELD_ID]",
+          "label": "Email",
+          "name": "email",
+          "options": null,
+          "order": 1,
+          "placeholder": "you@example.com",
+          "required": true
+        },
+        {
+          "field_type": "select",
+          "id": "[FIELD_ID]",
+          "label": "Subject",
+          "name": "subject",
+          "options": [
+            {
+              "id": "[OPTION_ID]",
+              "label": "General Inquiry",
+              "order": 0,
+              "value": "general"
+            },
+            {
+              "id": "[OPTION_ID]",
+              "label": "Support",
+              "order": 1,
+              "value": "support"
+            },
+            {
+              "id": "[OPTION_ID]",
+              "label": "Sales",
+              "order": 2,
+              "value": "sales"
+            }
+          ],
+          "order": 2,
+          "required": false
+        },
+        {
+          "field_type": "textarea",
+          "id": "[FIELD_ID]",
+          "label": "Message",
+          "name": "message",
+          "options": null,
+          "order": 3,
+          "placeholder": "How can we help?",
+          "required": true
+        }
+      ],
+      "id": "[STEP_ID]",
+      "name": "Main",
+      "order": 0
+    }
+  ]
+}
