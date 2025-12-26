@@ -64,12 +64,15 @@ impl JsonRenderer {
             });
         }
 
+        let settings = form.settings();
         Ok(FormJson {
             id: form.id.to_string(),
             name: form.name.clone(),
             slug: form.slug.clone(),
             description: form.description.clone(),
-            settings: form.settings(),
+            action_url: settings.action_url.clone(),
+            action_method: settings.method.clone(),
+            settings,
             steps: step_jsons,
         })
     }
@@ -101,6 +104,12 @@ pub struct FormJson {
     pub slug: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    /// Custom action URL for form submission (convenience field from settings).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action_url: Option<String>,
+    /// HTTP method for form submission (convenience field from settings).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action_method: Option<String>,
     pub settings: FormSettings,
     pub steps: Vec<StepJson>,
 }

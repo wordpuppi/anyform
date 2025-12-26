@@ -62,6 +62,20 @@ pub enum FormAction {
         #[arg(short, long)]
         folder: String,
     },
+
+    /// Set form action URL (where the form submits to)
+    SetAction {
+        /// Form slug
+        slug: String,
+
+        /// External URL to submit form data to (empty string to clear)
+        #[arg(long)]
+        url: Option<String>,
+
+        /// HTTP method (POST, PUT, PATCH)
+        #[arg(long)]
+        method: Option<String>,
+    },
 }
 
 /// Submission subcommand actions.

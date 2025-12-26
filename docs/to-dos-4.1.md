@@ -1,6 +1,6 @@
 # anyform Phase 4.1: Distribution
 
-> **Status**: Pending
+> **Status**: In Progress (release checklist pending)
 > **PRD Reference**: [axum-sea-forms-prd-0.4.0.md](/Users/rick/p/wordpuppi/docs/prd/libs/asf/axum-sea-forms-prd-0.4.0.md) Section 4
 > **Depends On**: Phase 4.0 (complete), Phase 4.3 WASM (complete)
 
@@ -22,38 +22,38 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 **File:** `.github/workflows/release.yml`
 
 ### 1.1 Update Build Matrix
-- [ ] Change package from `axum-sea-forms-cli` to `anyform`
-- [ ] Rename artifact names from `asf-*` to `anyform-*`:
+- [x] Change package from `axum-sea-forms-cli` to `anyform`
+- [x] Rename artifact names from `asf-*` to `anyform-*`:
   - `asf-linux-x86_64` → `anyform-linux-amd64`
   - `asf-macos-x86_64` → `anyform-darwin-amd64`
   - `asf-macos-aarch64` → `anyform-darwin-arm64`
   - `asf-windows-x86_64` → `anyform-windows-amd64.exe`
-- [ ] Add Linux ARM64 target:
+- [x] Add Linux ARM64 target:
   ```yaml
   - target: aarch64-unknown-linux-gnu
     os: ubuntu-latest
     name: anyform-linux-arm64
     cross: true
   ```
-- [ ] Install `cross` for Linux ARM64 cross-compilation
+- [x] Install `cross` for Linux ARM64 cross-compilation
 
 ### 1.2 Add Checksum Generation
-- [ ] Add step to generate SHA256 checksums:
+- [x] Add step to generate SHA256 checksums:
   ```yaml
   - name: Generate checksums
     run: |
       cd artifacts
       sha256sum */anyform-* > checksums.txt
   ```
-- [ ] Include `checksums.txt` in release assets
+- [x] Include `checksums.txt` in release assets
 
 ### 1.3 Update Release Job
-- [ ] Update artifact file paths to use new names
-- [ ] Add checksums.txt to release files
+- [x] Update artifact file paths to use new names
+- [x] Add checksums.txt to release files
 
 ### 1.4 Update Docker Job
-- [ ] Change image tags from `wordpuppi/axum-sea-forms` to `epenabella/anyform`
-- [ ] Add GitHub Container Registry (ghcr.io):
+- [x] Change image tags from `wordpuppi/axum-sea-forms` to `epenabella/anyform`
+- [x] Add GitHub Container Registry (ghcr.io):
   ```yaml
   tags: |
     epenabella/anyform:${{ steps.version.outputs.VERSION }}
@@ -61,11 +61,11 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
     ghcr.io/${{ github.repository }}:${{ steps.version.outputs.VERSION }}
     ghcr.io/${{ github.repository }}:latest
   ```
-- [ ] Add GHCR login step
+- [x] Add GHCR login step
 
 ### 1.5 Add WASM Build Job (Optional for 4.1)
-- [ ] Add wasm-pack build job
-- [ ] Publish to npm (requires npm token secret)
+- [x] Add wasm-pack build job
+- [x] Publish to npm (requires npm token secret)
 
 ---
 
@@ -74,30 +74,30 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 ### 2.1 Update Dockerfile
 **File:** `Dockerfile`
 
-- [ ] Update build command:
+- [x] Update build command:
   ```dockerfile
   # Change from:
   RUN cargo build --release --package axum-sea-forms-cli
   # To:
   RUN cargo build --release --package anyform --features cli
   ```
-- [ ] Update binary copy:
+- [x] Update binary copy:
   ```dockerfile
   # Change from:
   COPY --from=builder /app/target/release/asf /usr/local/bin/asf
   # To:
   COPY --from=builder /app/target/release/anyform /usr/local/bin/anyform
   ```
-- [ ] Update CMD:
+- [x] Update CMD:
   ```dockerfile
   CMD ["anyform", "serve", "--host", "0.0.0.0"]
   ```
-- [ ] Keep `debian:bookworm-slim` as runtime base (glibc compatible)
+- [x] Keep `debian:bookworm-slim` as runtime base (glibc compatible)
 
 ### 2.2 Create docker-compose.yml
 **File:** `docker-compose.yml`
 
-- [ ] Create example with embedded SQLite:
+- [x] Create example with embedded SQLite:
   ```yaml
   services:
     anyform:
@@ -113,7 +113,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 ### 2.3 Create docker-compose.postgres.yml
 **File:** `docker-compose.postgres.yml`
 
-- [ ] Create example with PostgreSQL:
+- [x] Create example with PostgreSQL:
   ```yaml
   services:
     anyform:
@@ -137,9 +137,9 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
   ```
 
 ### 2.4 Test Docker Images
-- [ ] Test `docker build .` locally
-- [ ] Test `docker run` with embedded SQLite
-- [ ] Test docker-compose with PostgreSQL
+- [x] Test `docker build .` locally
+- [x] Test `docker run` with embedded SQLite
+- [ ] Test docker-compose with PostgreSQL (deferred)
 
 ---
 
@@ -148,7 +148,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 ### 3.1 Create install.sh
 **File:** `install.sh`
 
-- [ ] Create shell script with:
+- [x] Create shell script with:
   ```bash
   #!/bin/sh
   set -e
@@ -189,7 +189,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
   ```
 
 ### 3.2 Add Checksum Verification
-- [ ] Download and verify checksums:
+- [x] Download and verify checksums:
   ```bash
   curl -sL "${URL}.sha256" -o /tmp/anyform.sha256
   cd /tmp && sha256sum -c anyform.sha256
@@ -197,7 +197,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 
 ### 3.3 Host Install Script
 - [ ] Option A: GitHub Pages at anyform.dev
-- [ ] Option B: Raw GitHub URL from main branch
+- [x] Option B: Raw GitHub URL from main branch
 
 ---
 
@@ -206,7 +206,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 ### 4.1 Homebrew Formula
 **File:** `homebrew/anyform.rb`
 
-- [ ] Create formula:
+- [x] Create formula:
   ```ruby
   class Anyform < Formula
     desc "Any database. Any form. Zero hassle."
@@ -246,13 +246,13 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
   end
   ```
 
-- [ ] Create Homebrew tap repo: `epenabella/homebrew-tap`
+- [ ] Create Homebrew tap repo: `epenabella/homebrew-tap` (deferred)
 - [ ] Or submit to homebrew-core (after project matures)
 
 ### 4.2 Scoop Manifest
 **File:** `scoop/anyform.json`
 
-- [ ] Create manifest:
+- [x] Create manifest:
   ```json
   {
     "version": "0.4.0",
@@ -277,7 +277,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
   }
   ```
 
-- [ ] Create Scoop bucket repo: `epenabella/scoop-anyform`
+- [ ] Create Scoop bucket repo: `epenabella/scoop-anyform` (deferred)
 - [ ] Or submit to scoop-extras bucket
 
 ---
@@ -285,7 +285,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 ## 5. Documentation
 
 ### 5.1 Update README.md
-- [ ] Add Installation section:
+- [x] Add Installation section:
   ```markdown
   ## Installation
 
@@ -319,7 +319,7 @@ Phase 4.1 delivers anyform to users via multiple distribution channels:
 ### 5.2 Create CHANGELOG.md
 **File:** `CHANGELOG.md`
 
-- [ ] Create with 0.4.0 release notes:
+- [x] Create with 0.4.0 release notes:
   ```markdown
   # Changelog
 

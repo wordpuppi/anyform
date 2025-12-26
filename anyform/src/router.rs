@@ -116,7 +116,8 @@ impl AnyFormRouterBuilder {
             .db
             .expect("Database connection is required. Call .database(db) before .build()");
 
-        let mut router = Router::new();
+        // Start with health check route (always enabled)
+        let mut router = Router::new().route("/health", get(handlers::health_check));
 
         if enable_html {
             router = router.route("/api/forms/{slug}", get(handlers::get_form_html));

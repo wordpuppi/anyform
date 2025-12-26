@@ -3,9 +3,12 @@
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 
+use sea_orm::{ActiveModelTrait, ActiveValue};
+
 use crate::{
-    entities::form::Entity as FormEntity,
+    entities::form::{ActiveModel as FormActiveModel, Entity as FormEntity},
     render::{HtmlOptions, HtmlRenderer, JsonRenderer},
+    schema::FormSettings,
     services::{CreateFormInput, FormBuilder},
 };
 
@@ -21,6 +24,7 @@ pub async fn handle(db: &DatabaseConnection, action: FormAction) -> Result<()> {
         FormAction::Export { slug, format } => export(db, &slug, &format).await,
         FormAction::Render { slug } => render(db, &slug).await,
         FormAction::Sync { folder } => sync(db, &folder).await,
+        FormAction::SetAction { slug, url, method } => set_action(db, &slug, url, method).await,
     }
 }
 
@@ -222,4 +226,69 @@ fn truncate(s: &str, max_len: usize) -> String {
     } else {
         format!("{}...", &s[..max_len - 3])
     }
+}
+
+async fn set_action(
+    db: &DatabaseConnection,
+    slug: &str,
+    url: Option<String>,
+    method: Option<String>,
+) -> Result<()> {
+    let form = FormEntity::find_by_slug(db, slug)
+        .await?
+        .ok_or_else(|| anyhow::anyhow!("Form not found: {}", slug))?;
+
+    // Get current settings and update action fields
+    let mut settings = form.settings();
+
+    if let Some(url) = url {
+        if url.is_empty() {
+            settings.action_url = None;
+            println!("Cleared action URL (will use default anyform handler)");
+        } else {
+            // Basic URL validation
+            if !url.starts_with("http://") && !url.starts_with("https://") {
+                anyhow::bail!("Invalid URL: must start with http:// or https://");
+            }
+            if url.starts_with("javascript:") || url.starts_with("data:") {
+                anyhow::bail!("Invalid URL: javascript: and data: schemes are not allowed");
+            }
+            settings.action_url = Some(url.clone());
+            println!("Set action URL: {}", url);
+        }
+    }
+
+    if let Some(method) = method {
+        let method_upper = method.to_uppercase();
+        if !["POST", "PUT", "PATCH"].contains(&method_upper.as_str()) {
+            anyhow::bail!("Invalid method: must be POST, PUT, or PATCH");
+        }
+        settings.method = Some(method_upper.clone());
+        println!("Set method: {}", method_upper);
+    }
+
+    // Update the form
+    let now = chrono::Utc::now().fixed_offset();
+    let updated = FormActiveModel {
+        id: ActiveValue::Unchanged(form.id),
+        name: ActiveValue::Unchanged(form.name),
+        slug: ActiveValue::Unchanged(form.slug),
+        description: ActiveValue::Unchanged(form.description),
+        settings: ActiveValue::Set(Some(serde_json::to_value(&settings)?)),
+        created_at: ActiveValue::Unchanged(form.created_at),
+        updated_at: ActiveValue::Set(now),
+        deleted_at: ActiveValue::Unchanged(form.deleted_at),
+    };
+
+    updated.update(db).await?;
+
+    println!("Form '{}' updated successfully.", slug);
+
+    // Show current action configuration
+    let current_url = settings.action_url.as_deref().unwrap_or("(default)");
+    let current_method = settings.method.as_deref().unwrap_or("POST");
+    println!("  Action URL: {}", current_url);
+    println!("  Method: {}", current_method);
+
+    Ok(())
 }

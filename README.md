@@ -1,117 +1,192 @@
-# axum-sea-forms
+# anyform
 
-Database-driven dynamic forms for Axum and SeaORM.
+**Any database. Any form. Zero hassle.**
 
-## Features
+A standalone form engine that runs anywhere. Install a single binary, connect your database (or use embedded SQLite), and get production-ready forms in seconds.
 
-- **Schema-driven forms**: Define forms in the database, not code
-- **Multiple output formats**: JSON, HTML, Tera templates
-- **Multi-step wizards**: Progress tracking with conditional logic
-- **Survey & quiz support**: Scoring, results, analytics
-- **Multi-database**: SQLite, PostgreSQL, MySQL via SeaORM
+## Installation
+
+### macOS (Homebrew)
+
+```bash
+brew install epenabella/tap/anyform
+```
+
+### Linux (curl)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/epenabella/anyform/main/install.sh | sh
+```
+
+### Windows (Scoop)
+
+```powershell
+scoop bucket add anyform https://github.com/epenabella/scoop-anyform
+scoop install anyform
+```
+
+### Docker
+
+```bash
+docker run -p 3000:3000 epenabella/anyform
+```
+
+### Cargo (Rust developers)
+
+```bash
+cargo install anyform
+```
 
 ## Quick Start
 
 ```bash
-# Add to your Cargo.toml
-cargo add axum-sea-forms
+# 1. Initialize (creates ./anyform.db)
+anyform init
+
+# 2. Create a form
+anyform form create contact --fields "name:text,email:email,message:textarea"
+
+# 3. Start server
+anyform serve
+
+# That's it! API at http://localhost:3000
 ```
 
-### Basic Usage
+## Features
 
-```rust
-use axum::{Router, Extension};
-use axum_sea_forms::{FormsRouter, Migrator};
-use sea_orm::Database;
-use sea_orm_migration::MigratorTrait;
+- **Zero-config**: Embedded SQLite, auto-migrations
+- **Schema-driven forms**: Define forms in the database, not code
+- **Multiple output formats**: JSON API, rendered HTML
+- **Multi-step wizards**: Progress tracking with conditional logic
+- **Survey & quiz support**: Scoring, results, analytics
+- **Multi-database**: SQLite, PostgreSQL, MySQL via SeaORM
+- **WASM client**: Browser-side validation and navigation
 
-#[tokio::main]
-async fn main() {
-    let db = Database::connect("sqlite:forms.db?mode=rwc").await.unwrap();
+## CLI Commands
 
-    // Run migrations
-    Migrator::up(&db, None).await.unwrap();
+```
+anyform <COMMAND>
 
-    // Mount the forms router
-    let app = Router::new()
-        .merge(FormsRouter::new(db.clone()))
-        .layer(Extension(db));
+Commands:
+  init          Initialize database
+  migrate       Run database migrations
+  form          Form management
+  submissions   Submission management
+  seed          Seed example forms
+  serve         Start HTTP server
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
-}
+Global Options:
+  --database <URL>    Database URL
+  -v, --verbose       Verbose output
+  -h, --help          Show help
+  -V, --version       Show version
 ```
 
-### Routes
+### Examples
+
+```bash
+# Create a form with fields
+anyform form create feedback \
+  --fields "rating:number,comment:textarea" \
+  --required rating
+
+# List all forms
+anyform form list
+
+# Export form as JSON
+anyform form export contact > contact.json
+
+# Start server with custom options
+anyform serve --port 8080 --cors "http://localhost:5173"
+```
+
+## API Routes
+
+### Public Routes
 
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/forms/{slug}` | Render form HTML |
-| GET | `/forms/{slug}/json` | Get form schema JSON |
-| POST | `/forms/{slug}` | Submit form (JSON response) |
-| POST | `/forms/{slug}/submit` | Submit form (redirect) |
-| GET | `/forms/{slug}/success` | Success page |
+| GET | `/api/forms/{slug}` | Form schema (JSON) |
+| GET | `/api/forms/{slug}.html` | Rendered HTML form |
+| POST | `/api/forms/{slug}` | Submit form data |
+| GET | `/api/forms/{slug}/success` | Success page |
 
-## CLI Tool
+### Admin Routes
 
-```bash
-# Install
-cargo install axum-sea-forms-cli
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/admin/forms` | List all forms |
+| POST | `/api/admin/forms` | Create form |
+| GET | `/api/admin/forms/{id}` | Get form by ID |
+| PUT | `/api/admin/forms/{id}` | Update form |
+| DELETE | `/api/admin/forms/{id}` | Soft delete form |
 
-# Initialize database
-asf migrate --database-url "sqlite:forms.db?mode=rwc"
+## Library Usage (Rust)
 
-# List forms
-asf form list
+Add `anyform` as a dependency in your Axum or Loco app:
 
-# Export form
-asf form export contact --format json
-
-# List submissions
-asf submissions list --form contact
-
-# Export to CSV
-asf submissions export --form contact --format csv > leads.csv
+```toml
+[dependencies]
+anyform = "0.4"
 ```
 
-## Feature Flags
+```rust
+use anyform::{AnyFormRouter, FormBuilder, CreateFormInput, ValueType};
+use axum::Router;
+use sea_orm::DatabaseConnection;
+
+// Add anyform routes to your Axum app
+let app = Router::new()
+    .merge(AnyFormRouter::new(db.clone()).with_admin().build())
+    .with_state(db);
+
+// Programmatic form creation
+let form = FormBuilder::create(&db, CreateFormInput::new("contact")
+    .with_step("main", |step| step
+        .with_field("email", "Email", ValueType::Email)
+        .with_field("message", "Message", ValueType::Textarea)
+    )
+).await?;
+```
+
+### Feature Flags
 
 | Feature | Description |
 |---------|-------------|
-| `json` | JSON serialization (default) |
-| `tera` | Tera template context builder (default) |
+| `default` | `["json", "tera"]` |
+| `json` | JSON schema rendering |
+| `tera` | Tera template context builder |
 | `handlers` | Pre-built Axum handlers |
-| `router` | FormsRouter builder |
+| `router` | AnyFormRouter builder |
 | `admin` | Admin CRUD routes |
 | `full` | All features |
 
-## Loco.rs Integration
-
-```rust
-use loco_rs::prelude::*;
-use axum_sea_forms::{Form, FormSubmission, TeraRenderer, validate_submission};
-
-pub async fn show(
-    Path(slug): Path<String>,
-    ViewEngine(v): ViewEngine<TeraView>,
-    State(ctx): State<AppContext>,
-) -> Result<Response> {
-    let form = Form::find_by_slug(&ctx.db, &slug).await?;
-    let tera_ctx = TeraRenderer::context(&ctx.db, &form).await?;
-    format::render().view(&v, "forms/show.html", tera_ctx)
-}
-```
-
 ## Database Schema
 
-Tables created by migrations:
+Tables use the `af_` prefix:
 
-- `asf_forms` - Form definitions
-- `asf_steps` - Multi-step form steps
-- `asf_fields` - Form fields
-- `asf_field_options` - Options for select/radio/checkbox
-- `asf_submissions` - Form submissions
-- `asf_results` - Quiz result buckets
+| Table | Description |
+|-------|-------------|
+| `af_forms` | Form definitions |
+| `af_steps` | Multi-step form steps |
+| `af_fields` | Form fields |
+| `af_field_options` | Options for select/radio/checkbox |
+| `af_submissions` | Form submissions |
+| `af_results` | Quiz result buckets |
+
+## Docker Compose
+
+### With SQLite (default)
+
+```bash
+docker compose up
+```
+
+### With PostgreSQL
+
+```bash
+docker compose -f docker-compose.postgres.yml up
+```
 
 ## License
 

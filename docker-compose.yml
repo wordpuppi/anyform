@@ -1,0 +1,10 @@
+services:
+  anyform:
+    image: epenabella/anyform:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - anyform-data:/data
+
+volumes:
+  anyform-data:

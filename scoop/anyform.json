@@ -1,0 +1,21 @@
+{
+  "version": "0.4.0",
+  "description": "Any database. Any form. Zero hassle.",
+  "homepage": "https://github.com/epenabella/anyform",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/epenabella/anyform/releases/download/v0.4.0/anyform-windows-amd64.exe",
+      "hash": "CHECKSUM_PLACEHOLDER"
+    }
+  },
+  "bin": [["anyform-windows-amd64.exe", "anyform"]],
+  "checkver": "github",
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/epenabella/anyform/releases/download/v$version/anyform-windows-amd64.exe"
+      }
+    }
+  }
+}

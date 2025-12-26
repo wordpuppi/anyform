@@ -319,6 +319,29 @@ impl FormState {
     pub fn schema(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.schema).unwrap_or(JsValue::NULL)
     }
+
+    /// Returns the action URL for form submission.
+    ///
+    /// If a custom action URL is set, returns that URL.
+    /// Otherwise, returns the default anyform submission endpoint.
+    pub fn action_url(&self) -> String {
+        self.schema
+            .action_url
+            .clone()
+            .or_else(|| self.schema.settings.action_url.clone())
+            .unwrap_or_else(|| format!("/api/forms/{}", self.schema.slug))
+    }
+
+    /// Returns the HTTP method for form submission.
+    ///
+    /// Returns "POST" if not explicitly configured.
+    pub fn action_method(&self) -> String {
+        self.schema
+            .action_method
+            .clone()
+            .or_else(|| self.schema.settings.method.clone())
+            .unwrap_or_else(|| "POST".to_string())
+    }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

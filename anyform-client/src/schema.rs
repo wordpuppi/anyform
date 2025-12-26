@@ -14,6 +14,12 @@ pub struct FormJson {
     pub slug: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    /// Custom action URL for form submission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action_url: Option<String>,
+    /// HTTP method for form submission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action_method: Option<String>,
     #[serde(default)]
     pub settings: FormSettings,
     pub steps: Vec<StepJson>,
@@ -80,6 +86,12 @@ pub struct FormSettings {
     pub show_progress: bool,
     #[serde(default)]
     pub allow_save_draft: bool,
+    /// Custom action URL for form submission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action_url: Option<String>,
+    /// HTTP method for form submission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub method: Option<String>,
 }
 
 /// Field value types.

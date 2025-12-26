@@ -171,6 +171,8 @@ fn parse_form_schema(form: &HtmlFormElement, slug: &str) -> Option<FormJson> {
         name: slug.to_string(),
         slug: slug.to_string(),
         description: None,
+        action_url: None,
+        action_method: None,
         settings: Default::default(),
         steps,
     })

@@ -296,3 +296,72 @@ async fn test_render_all_field_types() {
     assert!(field_types.contains(&"time"));
     assert!(field_types.contains(&"hidden"));
 }
+
+// ============================================================================
+// Custom Action URL
+// ============================================================================
+
+#[tokio::test]
+async fn test_render_form_with_action_url() {
+    let db = setup().await;
+
+    let input = CreateFormInput::new("External Submit", "json-action-url")
+        .settings(
+            FormSettings::new()
+                .action_url("https://api.example.com/leads")
+                .method("POST"),
+        );
+
+    let form = FormBuilder::create(db.conn(), input).await.unwrap();
+    let result = JsonRenderer::render(db.conn(), &form).await.unwrap();
+
+    // action_url and action_method should be at top level
+    assert_eq!(
+        result.action_url,
+        Some("https://api.example.com/leads".to_string())
+    );
+    assert_eq!(result.action_method, Some("POST".to_string()));
+
+    // Also in settings
+    assert_eq!(
+        result.settings.action_url,
+        Some("https://api.example.com/leads".to_string())
+    );
+    assert_eq!(result.settings.method, Some("POST".to_string()));
+}
+
+#[tokio::test]
+async fn test_render_form_without_action_url() {
+    let db = setup().await;
+
+    let input = CreateFormInput::new("Default Submit", "json-no-action-url")
+        .settings(FormSettings::new().success_message("Thanks!"));
+
+    let form = FormBuilder::create(db.conn(), input).await.unwrap();
+    let result = JsonRenderer::render(db.conn(), &form).await.unwrap();
+
+    // action_url and action_method should be None
+    assert!(result.action_url.is_none());
+    assert!(result.action_method.is_none());
+}
+
+#[tokio::test]
+async fn test_render_form_with_custom_method() {
+    let db = setup().await;
+
+    let input = CreateFormInput::new("PUT Form", "json-put-method")
+        .settings(
+            FormSettings::new()
+                .action_url("https://api.example.com/update")
+                .method("PUT"),
+        );
+
+    let form = FormBuilder::create(db.conn(), input).await.unwrap();
+    let result = JsonRenderer::render(db.conn(), &form).await.unwrap();
+
+    assert_eq!(
+        result.action_url,
+        Some("https://api.example.com/update".to_string())
+    );
+    assert_eq!(result.action_method, Some("PUT".to_string()));
+}

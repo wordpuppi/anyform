@@ -1,0 +1,27 @@
+{
+  "name": "anyform-client",
+  "type": "module",
+  "description": "WASM client for anyform - browser-side form handling",
+  "version": "0.4.0",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anyform-dev/anyform"
+  },
+  "files": [
+    "anyform_client_bg.wasm",
+    "anyform_client.js",
+    "anyform_client.d.ts"
+  ],
+  "main": "anyform_client.js",
+  "types": "anyform_client.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ],
+  "keywords": [
+    "wasm",
+    "forms",
+    "validation",
+    "client"
+  ]
+}

@@ -79,3 +79,6 @@ insta = { version = "1.42", features = ["yaml", "json"] }
 tempfile = "3"
 tower = { workspace = true, features = ["util"] }
 http-body-util = "0.1"
+bytes = "1"
+assert_cmd = "2.0"
+predicates = "3.1"

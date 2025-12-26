@@ -465,3 +465,14 @@ pub async fn sync_forms(
     })
     .with_request_id(request_id)
 }
+
+// ============================================================================
+// Health Check
+// ============================================================================
+
+/// Health check endpoint.
+///
+/// Returns "OK" with status 200 when the server is running.
+pub async fn health_check() -> &'static str {
+    "OK"
+}
