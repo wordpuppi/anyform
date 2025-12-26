@@ -4,7 +4,7 @@ use sea_orm::entity::prelude::*;
 use sea_orm::{QueryFilter, QueryOrder};
 use serde::{Deserialize, Serialize};
 
-use axum_sea_forms_core::ConditionRule;
+use crate::condition::ConditionRule;
 
 use crate::schema::{UiOptions, ValidationRules, ValueType};
 

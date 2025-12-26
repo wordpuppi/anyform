@@ -1,6 +1,6 @@
 //! UI options for form fields.
 
-use axum_sea_forms_core::ConditionRule;
+use crate::condition::ConditionRule;
 use serde::{Deserialize, Serialize};
 
 /// UI/display options for a form field.

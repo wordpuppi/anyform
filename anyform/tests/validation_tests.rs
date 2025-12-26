@@ -2,7 +2,7 @@
 
 mod common;
 
-use axum_sea_forms::{
+use anyform::{
     entities::field::Entity as FieldEntity,
     services::{CreateFieldInput, CreateFormInput, CreateStepInput, FormBuilder},
     schema::{FieldValue, ValidationRules},
@@ -37,7 +37,7 @@ async fn test_required_field_empty_value() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -62,7 +62,7 @@ async fn test_required_field_with_value() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -86,7 +86,7 @@ async fn test_optional_field_empty_value() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -114,7 +114,7 @@ async fn test_valid_email() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -137,7 +137,7 @@ async fn test_invalid_email() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -167,7 +167,7 @@ async fn test_min_length_validation() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -203,7 +203,7 @@ async fn test_max_length_validation() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -246,7 +246,7 @@ async fn test_pattern_validation() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -285,7 +285,7 @@ async fn test_numeric_min_max() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -333,7 +333,7 @@ async fn test_url_validation() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -370,7 +370,7 @@ async fn test_phone_validation() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -400,7 +400,7 @@ async fn test_date_validation() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)
@@ -438,7 +438,7 @@ async fn test_multiple_validation_errors() {
         );
 
     let form = FormBuilder::create(db.conn(), form).await.unwrap();
-    let steps = axum_sea_forms::entities::step::Entity::find_by_form(db.conn(), form.id)
+    let steps = anyform::entities::step::Entity::find_by_form(db.conn(), form.id)
         .await
         .unwrap();
     let fields = FieldEntity::find_by_step(db.conn(), steps[0].id)

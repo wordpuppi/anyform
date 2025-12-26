@@ -1,6 +1,6 @@
-//! # axum-sea-forms
+//! # anyform
 //!
-//! Database-driven dynamic forms for Axum and SeaORM.
+//! Any database. Any form. Zero hassle.
 //!
 //! ## Features
 //!
@@ -12,9 +12,9 @@
 //!
 //! ## Quick Start
 //!
-//! ```rust,no_run
+//! ```rust,ignore
 //! use axum::{Router, Extension};
-//! use axum_sea_forms::FormsRouter;
+//! use anyform::AnyFormRouter;
 //! use sea_orm::Database;
 //!
 //! #[tokio::main]
@@ -22,7 +22,7 @@
 //!     let db = Database::connect("sqlite:forms.db").await.unwrap();
 //!
 //!     let app = Router::new()
-//!         .merge(FormsRouter::new(db.clone()))
+//!         .merge(AnyFormRouter::new(db.clone()))
 //!         .layer(Extension(db));
 //!
 //!     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
@@ -30,6 +30,7 @@
 //! }
 //! ```
 
+pub mod condition;
 pub mod entities;
 pub mod error;
 pub mod extractors;
@@ -47,6 +48,9 @@ pub mod handlers;
 
 #[cfg(feature = "router")]
 mod router;
+
+#[cfg(feature = "cli")]
+pub mod commands;
 
 // Re-export migrations
 pub use migration::{Migrator, MigratorTrait};
@@ -70,8 +74,8 @@ pub use schema::{
     FieldValue, FormSettings, ScaleLabels, UiOptions, ValidationRules, ValueType,
 };
 
-// Re-export condition types from core
-pub use axum_sea_forms_core::{ConditionOp, ConditionRule};
+// Re-export condition types
+pub use condition::{ConditionOp, ConditionRule};
 
 // Re-export seeding functions
 pub use seed::{
@@ -103,6 +107,15 @@ pub use render::{FormJson, HtmlOptions, HtmlRenderer, JsonRenderer};
 #[cfg(feature = "tera")]
 pub use render::TeraRenderer;
 
-// Re-export router
+// Re-export router (with legacy alias)
 #[cfg(feature = "router")]
-pub use router::{FormsRouter, FormsRouterBuilder};
+pub use router::{AnyFormRouter, AnyFormRouterBuilder};
+
+// Legacy aliases for backwards compatibility
+#[cfg(feature = "router")]
+#[deprecated(since = "0.4.0", note = "Use AnyFormRouter instead")]
+pub type FormsRouter = AnyFormRouter;
+
+#[cfg(feature = "router")]
+#[deprecated(since = "0.4.0", note = "Use AnyFormRouterBuilder instead")]
+pub type FormsRouterBuilder = AnyFormRouterBuilder;

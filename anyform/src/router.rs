@@ -1,4 +1,4 @@
-//! FormsRouter for easy Axum integration.
+//! AnyFormRouter for easy Axum integration.
 
 use axum::{
     routing::{delete, get, post, put},
@@ -14,21 +14,21 @@ use crate::handlers;
 ///
 /// ```rust,ignore
 /// use axum::Router;
-/// use axum_sea_forms::FormsRouter;
+/// use anyform::AnyFormRouter;
 ///
 /// let app = Router::new()
-///     .merge(FormsRouter::new(db.clone()));
+///     .merge(AnyFormRouter::new(db.clone()));
 ///
 /// // Routes available:
-/// // GET  /forms/{slug}         - Render form HTML
-/// // GET  /forms/{slug}/json    - Get form schema JSON
-/// // POST /forms/{slug}         - Submit form (JSON response)
-/// // POST /forms/{slug}/submit  - Submit form (redirect)
-/// // GET  /forms/{slug}/success - Success page
+/// // GET  /api/forms/{slug}         - Render form HTML
+/// // GET  /api/forms/{slug}/json    - Get form schema JSON
+/// // POST /api/forms/{slug}         - Submit form (JSON response)
+/// // POST /api/forms/{slug}/submit  - Submit form (redirect)
+/// // GET  /api/forms/{slug}/success - Success page
 /// ```
-pub struct FormsRouter;
+pub struct AnyFormRouter;
 
-impl FormsRouter {
+impl AnyFormRouter {
     /// Creates a new forms router with default routes.
     #[must_use]
     pub fn new(db: DatabaseConnection) -> Router {
@@ -37,14 +37,14 @@ impl FormsRouter {
 
     /// Creates a builder for customizing the router.
     #[must_use]
-    pub fn builder() -> FormsRouterBuilder {
-        FormsRouterBuilder::default()
+    pub fn builder() -> AnyFormRouterBuilder {
+        AnyFormRouterBuilder::default()
     }
 }
 
-/// Builder for customizing the FormsRouter.
+/// Builder for customizing the AnyFormRouter.
 #[derive(Default)]
-pub struct FormsRouterBuilder {
+pub struct AnyFormRouterBuilder {
     db: Option<DatabaseConnection>,
     enable_html: bool,
     enable_json: bool,
@@ -54,7 +54,7 @@ pub struct FormsRouterBuilder {
     enable_admin: bool,
 }
 
-impl FormsRouterBuilder {
+impl AnyFormRouterBuilder {
     /// Sets the database connection.
     #[must_use]
     pub fn database(mut self, db: DatabaseConnection) -> Self {
@@ -119,42 +119,42 @@ impl FormsRouterBuilder {
         let mut router = Router::new();
 
         if enable_html {
-            router = router.route("/forms/{slug}", get(handlers::get_form_html));
+            router = router.route("/api/forms/{slug}", get(handlers::get_form_html));
         }
 
         if enable_json {
-            router = router.route("/forms/{slug}/json", get(handlers::get_form_json));
+            router = router.route("/api/forms/{slug}/json", get(handlers::get_form_json));
         }
 
         if enable_submit {
             router = router
-                .route("/forms/{slug}", post(handlers::submit_form))
-                .route("/forms/{slug}/submit", post(handlers::submit_form_redirect));
+                .route("/api/forms/{slug}", post(handlers::submit_form))
+                .route("/api/forms/{slug}/submit", post(handlers::submit_form_redirect));
         }
 
         if enable_success {
-            router = router.route("/forms/{slug}/success", get(handlers::form_success));
+            router = router.route("/api/forms/{slug}/success", get(handlers::form_success));
         }
 
         #[cfg(feature = "admin")]
         if self.enable_admin {
             router = router
-                .route("/admin/forms", get(handlers::list_forms))
-                .route("/admin/forms", post(handlers::create_form))
-                .route("/admin/forms/sync", post(handlers::sync_forms))
-                .route("/admin/forms/{id}", get(handlers::get_form_by_id))
-                .route("/admin/forms/{id}", put(handlers::update_form))
-                .route("/admin/forms/{id}", delete(handlers::delete_form))
+                .route("/api/admin/forms", get(handlers::list_forms))
+                .route("/api/admin/forms", post(handlers::create_form))
+                .route("/api/admin/forms/sync", post(handlers::sync_forms))
+                .route("/api/admin/forms/{id}", get(handlers::get_form_by_id))
+                .route("/api/admin/forms/{id}", put(handlers::update_form))
+                .route("/api/admin/forms/{id}", delete(handlers::delete_form))
                 .route(
-                    "/admin/forms/{id}/submissions",
+                    "/api/admin/forms/{id}/submissions",
                     get(handlers::list_submissions),
                 )
                 .route(
-                    "/admin/forms/{form_id}/submissions/{sub_id}",
+                    "/api/admin/forms/{form_id}/submissions/{sub_id}",
                     get(handlers::get_submission),
                 )
                 .route(
-                    "/admin/forms/{form_id}/submissions/{sub_id}",
+                    "/api/admin/forms/{form_id}/submissions/{sub_id}",
                     delete(handlers::delete_submission),
                 );
         }

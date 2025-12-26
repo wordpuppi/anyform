@@ -2,7 +2,7 @@
 
 mod common;
 
-use axum_sea_forms::{
+use anyform::{
     render::JsonRenderer,
     services::{CreateFieldInput, CreateFormInput, CreateOptionInput, CreateStepInput, FormBuilder},
     schema::FormSettings,
@@ -137,7 +137,7 @@ async fn test_render_validation_rules() {
             CreateStepInput::new("Main").field(
                 CreateFieldInput::new("username", "Username", "text")
                     .validation(
-                        axum_sea_forms::schema::ValidationRules::new()
+                        anyform::schema::ValidationRules::new()
                             .min_length(3)
                             .max_length(20),
                     ),

@@ -1,6 +1,6 @@
 //! Test fixtures and data builders.
 
-use axum_sea_forms::{
+use anyform::{
     services::{CreateFieldInput, CreateFormInput, CreateOptionInput, CreateStepInput},
     schema::{FormSettings, UiOptions, ValidationRules},
 };
@@ -163,8 +163,8 @@ pub fn all_field_types_form() -> CreateFormInput {
 pub async fn create_test_form(
     db: &DatabaseConnection,
     input: CreateFormInput,
-) -> axum_sea_forms::Form {
-    axum_sea_forms::FormBuilder::create(db, input)
+) -> anyform::Form {
+    anyform::FormBuilder::create(db, input)
         .await
         .expect("Failed to create test form")
 }

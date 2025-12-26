@@ -1,36 +1,36 @@
 [workspace]
 resolver = "2"
-members = ["axum-sea-forms", "axum-sea-forms-cli", "axum-sea-forms-core", "migration"]
+members = ["anyform", "migration"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.4.0"
 edition = "2021"
 rust-version = "1.75"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/wordpuppi/axum-sea-forms"
-keywords = ["axum", "forms", "sea-orm", "web", "survey"]
+repository = "https://github.com/anyform-dev/anyform"
+keywords = ["anyform", "forms", "database", "web", "survey"]
 categories = ["web-programming", "database"]
 
 [workspace.dependencies]
-# Web framework (aligned with WordPuppi)
+# Web framework
 axum = "0.8"
 axum-extra = { version = "0.10", features = ["typed-header", "multipart", "form"] }
 tower = "0.5"
 tower-sessions = "0.14"
 http = "1.0"
 
-# Database (aligned with WordPuppi)
+# Database
 sea-orm = { version = "1.1", features = ["sqlx-sqlite", "sqlx-postgres", "sqlx-mysql", "runtime-tokio-rustls", "macros"] }
 sea-orm-migration = { version = "1.1", features = ["sqlx-sqlite", "sqlx-postgres", "sqlx-mysql", "runtime-tokio-rustls"] }
 
 # Templating
 tera = "1.19"
 
-# Serialization (aligned with WordPuppi)
+# Serialization
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
-# Utilities (aligned with WordPuppi)
+# Utilities
 uuid = { version = "1.6", features = ["v4", "serde"] }
 chrono = { version = "0.4", features = ["serde"] }
 thiserror = "2"
@@ -43,12 +43,11 @@ tracing = "0.1"
 regex = "1.11"
 evalexpr = "13.0"
 
-# CLI (aligned with WordPuppi)
-clap = { version = "4", features = ["derive"] }
+# CLI
+clap = { version = "4", features = ["derive", "env"] }
 
 # Internal crates
-axum-sea-forms = { path = "axum-sea-forms" }
-axum-sea-forms-core = { path = "axum-sea-forms-core" }
+anyform = { path = "anyform" }
 migration = { path = "migration" }
 
 [workspace.lints.clippy]

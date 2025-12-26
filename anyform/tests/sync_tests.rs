@@ -2,7 +2,7 @@
 
 mod common;
 
-use axum_sea_forms::{
+use anyform::{
     services::{CreateFieldInput, CreateFormInput, CreateStepInput, FormBuilder},
 };
 use common::db::TestDb;
@@ -156,8 +156,8 @@ async fn test_sync_preserves_unsynced_forms() {
 async fn test_sync_with_complex_form() {
     let db = setup().await;
 
-    use axum_sea_forms::services::CreateOptionInput;
-    use axum_sea_forms::schema::{FormSettings, ValidationRules};
+    use anyform::services::CreateOptionInput;
+    use anyform::schema::{FormSettings, ValidationRules};
 
     let input = CreateFormInput::new("Complex Form", "sync-complex")
         .description("A complex form for sync testing")

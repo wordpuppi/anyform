@@ -1,6 +1,6 @@
 //! Step entity.
 
-use axum_sea_forms_core::ConditionRule;
+use crate::condition::ConditionRule;
 use sea_orm::entity::prelude::*;
 use sea_orm::{QueryFilter, QueryOrder};
 use serde::{Deserialize, Serialize};

@@ -1,6 +1,6 @@
 //! HTML rendering for forms with multi-step and WASM hydration support.
 
-use axum_sea_forms_core::ConditionRule;
+use crate::condition::ConditionRule;
 use sea_orm::DatabaseConnection;
 use std::collections::HashMap;
 use std::fmt::Write;
