@@ -9,7 +9,7 @@ use crate::condition::ConditionRule;
 use crate::schema::{UiOptions, ValidationRules, ValueType};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Serialize, Deserialize)]
-#[sea_orm(table_name = "asf_fields")]
+#[sea_orm(table_name = "af_fields")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,

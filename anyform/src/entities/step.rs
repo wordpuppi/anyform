@@ -6,7 +6,7 @@ use sea_orm::{QueryFilter, QueryOrder};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel, Serialize, Deserialize)]
-#[sea_orm(table_name = "asf_steps")]
+#[sea_orm(table_name = "af_steps")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,

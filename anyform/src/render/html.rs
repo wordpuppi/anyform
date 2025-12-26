@@ -105,12 +105,12 @@ impl HtmlOptions {
 
 /// Inline CSS for multi-step forms.
 const MULTI_STEP_CSS: &str = r#"<style>
-.asf-step:not([data-asf-visible="true"]) { display: none; }
-.asf-field:not([data-asf-visible="true"]) { display: none; }
-.asf-field.asf-error input,
-.asf-field.asf-error select,
-.asf-field.asf-error textarea { border-color: var(--asf-error, #ef4444); }
-.asf-field .asf-error-message { color: var(--asf-error, #ef4444); font-size: 0.875rem; }
+.af-step:not([data-af-visible="true"]) { display: none; }
+.af-field:not([data-af-visible="true"]) { display: none; }
+.af-field.af-error input,
+.af-field.af-error select,
+.af-field.af-error textarea { border-color: var(--af-error, #ef4444); }
+.af-field .af-error-message { color: var(--af-error, #ef4444); font-size: 0.875rem; }
 </style>
 "#;
 
@@ -184,8 +184,8 @@ impl HtmlRenderer {
             ""
         };
 
-        // Build form class (always include asf-form for WASM hydration)
-        let mut form_class = String::from("asf-form");
+        // Build form class (always include af-form for WASM hydration)
+        let mut form_class = String::from("af-form");
         if let Some(custom_class) = options
             .form_class
             .as_deref()
@@ -197,7 +197,7 @@ impl HtmlRenderer {
 
         writeln!(
             html,
-            "<form method=\"{method}\" action=\"{action}\"{enctype} class=\"{form_class}\" data-asf-form=\"{}\">",
+            "<form method=\"{method}\" action=\"{action}\"{enctype} class=\"{form_class}\" data-af-form=\"{}\">",
             form.slug
         )
         .unwrap();
@@ -252,7 +252,7 @@ impl HtmlRenderer {
             let url = wasm_url.trim_end_matches('/');
             writeln!(
                 html,
-                "  <script type=\"module\" src=\"{url}/asf-client.js\"></script>"
+                "  <script type=\"module\" src=\"{url}/af-client.js\"></script>"
             )
             .unwrap();
         }
@@ -280,12 +280,12 @@ impl HtmlRenderer {
             let condition_attr = step
                 .condition
                 .as_ref()
-                .map(|c| format!(" data-asf-condition='{}'", escape_json_attr(c)))
+                .map(|c| format!(" data-af-condition='{}'", escape_json_attr(c)))
                 .unwrap_or_default();
 
             writeln!(
                 html,
-                "  <div class=\"asf-step\" data-asf-step=\"{step_index}\" data-asf-visible=\"{visible}\"{condition_attr}>"
+                "  <div class=\"af-step\" data-af-step=\"{step_index}\" data-af-visible=\"{visible}\"{condition_attr}>"
             )
             .unwrap();
 
@@ -337,20 +337,20 @@ impl HtmlRenderer {
             .map(|c| format!(" {c}"))
             .unwrap_or_default();
 
-        writeln!(html, "  <div class=\"asf-navigation\">").unwrap();
+        writeln!(html, "  <div class=\"af-navigation\">").unwrap();
         writeln!(
             html,
-            "    <button type=\"button\" class=\"asf-prev{button_class}\" disabled>Back</button>"
+            "    <button type=\"button\" class=\"af-prev{button_class}\" disabled>Back</button>"
         )
         .unwrap();
         writeln!(
             html,
-            "    <button type=\"button\" class=\"asf-next{button_class}\">Next</button>"
+            "    <button type=\"button\" class=\"af-next{button_class}\">Next</button>"
         )
         .unwrap();
         writeln!(
             html,
-            "    <button type=\"submit\" class=\"asf-submit{button_class}\" style=\"display:none\">{}</button>",
+            "    <button type=\"submit\" class=\"af-submit{button_class}\" style=\"display:none\">{}</button>",
             escape_html(submit_label)
         )
         .unwrap();
@@ -385,7 +385,7 @@ impl HtmlRenderer {
         }
 
         // Build field container class
-        let mut field_class = String::from("asf-field");
+        let mut field_class = String::from("af-field");
         if let Some(custom_class) = &html_options.field_class {
             field_class.push(' ');
             field_class.push_str(custom_class);
@@ -398,22 +398,22 @@ impl HtmlRenderer {
         }
 
         if errors.is_some() {
-            field_class.push_str(" field--error asf-error");
+            field_class.push_str(" field--error af-error");
         }
 
         // Build data attributes
-        let mut data_attrs = format!(" data-asf-field=\"{}\"", field.name);
+        let mut data_attrs = format!(" data-af-field=\"{}\"", field.name);
 
         // Always visible initially (WASM will hide based on conditions)
         if is_multi_step {
-            data_attrs.push_str(" data-asf-visible=\"true\"");
+            data_attrs.push_str(" data-af-visible=\"true\"");
         }
 
         // Condition attribute
         if let Some(condition) = &ui.condition {
             write!(
                 data_attrs,
-                " data-asf-condition='{}'",
+                " data-af-condition='{}'",
                 render_condition_json(condition)
             )
             .unwrap();
@@ -424,7 +424,7 @@ impl HtmlRenderer {
         if field.required || !validation.is_empty() {
             write!(
                 data_attrs,
-                " data-asf-validation='{}'",
+                " data-af-validation='{}'",
                 render_validation_json(field.required, &validation)
             )
             .unwrap();
@@ -596,7 +596,7 @@ impl HtmlRenderer {
                 .error_class
                 .as_ref()
                 .map(|c| format!(" class=\"{c}\""))
-                .unwrap_or_else(|| " class=\"error asf-error-message\"".to_string());
+                .unwrap_or_else(|| " class=\"error af-error-message\"".to_string());
 
             for err in errs {
                 writeln!(html, "      <span{error_class}>{}</span>", escape_html(err)).unwrap();

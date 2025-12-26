@@ -258,6 +258,39 @@
 - [ ] Test in browser environment
 - [ ] Add wasm-bindgen-test tests
 
+### Hydration Mode (auto-magic forms)
+- [ ] Create `src/hydrate.rs` - entry points
+- [ ] Implement `hydrate_all()` - find and hydrate all forms on page
+- [ ] Implement `hydrate(slug)` - hydrate specific form by slug
+- [ ] Create `src/dom.rs` - DOM query helpers
+- [ ] Implement `query(selector)` - find single element
+- [ ] Implement `query_all(selector)` - find all elements
+- [ ] Implement `set_visible(element, bool)` - update visibility attribute
+- [ ] Create `src/form_controller.rs` - AfForm struct
+- [ ] Parse `data-af-form` attribute for form slug
+- [ ] Parse `data-af-step` for step discovery
+- [ ] Parse `data-af-field` for field discovery
+- [ ] Parse `data-af-condition` JSON for conditions
+- [ ] Parse `data-af-validation` JSON for validation rules
+- [ ] Bind input/change events to fields
+- [ ] Bind click events to `.af-prev`, `.af-next` buttons
+- [ ] Bind submit event to form
+- [ ] Update `data-af-visible` on condition changes
+- [ ] Show/hide `.af-submit` on last step
+- [ ] Display validation errors in `.af-error-message`
+- [ ] Add/remove `.af-error` class on validation
+- [ ] Export `hydrate` and `hydrate_all` via wasm-bindgen
+- [ ] Unit tests for form controller
+- [ ] Integration test: hydrate multi-step form
+
+### HTML Renderer Updates
+- [ ] Update CSS class prefix: `asf-` → `af-`
+- [ ] Update data attribute prefix: `data-asf-` → `data-af-`
+- [ ] Update inline CSS variable names
+- [ ] Update WASM loader script path
+- [ ] Add `data-af-validation` attribute output
+- [ ] Test rendered HTML with WASM hydration
+
 ---
 
 ## Phase 4.4: npm Package (anyform-js) — PENDING

@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use crate::schema::FormSettings;
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel, Serialize, Deserialize)]
-#[sea_orm(table_name = "asf_forms")]
+#[sea_orm(table_name = "af_forms")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,

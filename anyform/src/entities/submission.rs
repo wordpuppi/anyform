@@ -8,7 +8,7 @@ use std::collections::HashMap;
 use crate::schema::FieldValue;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Serialize, Deserialize)]
-#[sea_orm(table_name = "asf_submissions")]
+#[sea_orm(table_name = "af_submissions")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
