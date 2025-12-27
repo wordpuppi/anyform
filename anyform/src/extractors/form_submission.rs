@@ -17,7 +17,7 @@ use crate::schema::FieldValue;
 /// # Example
 ///
 /// ```rust,ignore
-/// use axum_sea_forms::FormSubmission;
+/// use anyform::FormSubmission;
 ///
 /// async fn handle_submit(
 ///     FormSubmission(data): FormSubmission,

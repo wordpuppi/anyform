@@ -1,4 +1,4 @@
-//! SeaORM entity definitions for axum-sea-forms.
+//! SeaORM entity definitions for anyform.
 
 pub mod field;
 pub mod field_option;

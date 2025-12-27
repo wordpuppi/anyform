@@ -1,6 +1,6 @@
 [package]
-name = "axum-sea-forms-cli"
-description = "CLI tool for axum-sea-forms"
+name = "anyform-cli"
+description = "CLI tool for anyform"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -12,7 +12,7 @@ name = "asf"
 path = "src/main.rs"
 
 [dependencies]
-axum-sea-forms = { workspace = true, features = ["full"] }
+anyform = { workspace = true, features = ["full"] }
 migration = { workspace = true }
 
 # Web framework (for serve command)

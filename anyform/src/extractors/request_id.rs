@@ -15,7 +15,7 @@ use uuid::Uuid;
 /// # Example
 ///
 /// ```rust,ignore
-/// use axum_sea_forms::extractors::RequestId;
+/// use anyform::extractors::RequestId;
 ///
 /// async fn handler(RequestId(id): RequestId) -> String {
 ///     format!("Request ID: {}", id)

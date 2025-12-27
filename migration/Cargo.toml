@@ -1,6 +1,6 @@
 [package]
 name = "migration"
-description = "SeaORM migrations for axum-sea-forms"
+description = "SeaORM migrations for anyform"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

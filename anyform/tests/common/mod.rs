@@ -1,4 +1,4 @@
-//! Shared test utilities for axum-sea-forms.
+//! Shared test utilities for anyform.
 
 pub mod app;
 pub mod cli;

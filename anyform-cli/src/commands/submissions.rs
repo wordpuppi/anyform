@@ -4,7 +4,7 @@ use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use uuid::Uuid;
 
-use axum_sea_forms::entities::{
+use anyform::entities::{
     form::Entity as FormEntity,
     submission::Entity as SubmissionEntity,
 };

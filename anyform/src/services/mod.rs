@@ -1,4 +1,4 @@
-//! Service layer for axum-sea-forms.
+//! Service layer for anyform.
 //!
 //! This module provides high-level services for form management,
 //! including creation, updates, and deletion with full transaction support.

@@ -1,4 +1,4 @@
-//! Validation tests for axum-sea-forms.
+//! Validation tests for anyform.
 
 mod common;
 

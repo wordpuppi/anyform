@@ -1,4 +1,4 @@
-//! Shared types for axum-sea-forms.
+//! Shared types for anyform.
 //!
 //! This crate contains types that are shared between the server library
 //! and the WASM client, including:

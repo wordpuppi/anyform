@@ -22,7 +22,7 @@ use super::FormSubmission;
 /// # Example
 ///
 /// ```rust,ignore
-/// use axum_sea_forms::ValidatedSubmission;
+/// use anyform::ValidatedSubmission;
 ///
 /// async fn handle_submit(
 ///     ValidatedSubmission { form_id, data, errors }: ValidatedSubmission,

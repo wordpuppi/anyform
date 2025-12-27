@@ -1,7 +1,7 @@
-//! axum-sea-forms CLI tool.
+//! anyform CLI tool.
 
 use anyhow::Result;
-use axum_sea_forms::FormsRouter;
+use anyform::FormsRouter;
 use clap::{Parser, Subcommand};
 use sea_orm::{Database, DatabaseConnection};
 use sea_orm_migration::MigratorTrait;
@@ -11,7 +11,7 @@ mod commands;
 
 #[derive(Parser)]
 #[command(name = "asf")]
-#[command(author, version, about = "axum-sea-forms CLI tool", long_about = None)]
+#[command(author, version, about = "anyform CLI tool", long_about = None)]
 struct Cli {
     /// Database URL (or set DATABASE_URL env var)
     #[arg(short, long, env = "DATABASE_URL")]
@@ -232,23 +232,23 @@ async fn main() -> Result<()> {
 
             if clear {
                 println!("Clearing seeded forms...");
-                axum_sea_forms::clear_seeded_forms(&db).await?;
+                anyform::clear_seeded_forms(&db).await?;
                 println!("Done.");
             } else if contact_only {
                 println!("Seeding contact form...");
-                axum_sea_forms::seed_contact_form(&db).await?;
+                anyform::seed_contact_form(&db).await?;
                 println!("Done.");
             } else if feedback_only {
                 println!("Seeding feedback form...");
-                axum_sea_forms::seed_feedback_form(&db).await?;
+                anyform::seed_feedback_form(&db).await?;
                 println!("Done.");
             } else if quiz_only {
                 println!("Seeding quiz form...");
-                axum_sea_forms::seed_quiz_form(&db).await?;
+                anyform::seed_quiz_form(&db).await?;
                 println!("Done.");
             } else {
                 println!("Seeding all example forms...");
-                axum_sea_forms::seed_all(&db).await?;
+                anyform::seed_all(&db).await?;
                 println!("Done. Created: contact, feedback, quiz");
             }
         }

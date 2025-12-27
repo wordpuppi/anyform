@@ -376,7 +376,7 @@ impl CreateOptionInput {
 /// # Example
 ///
 /// ```rust,ignore
-/// use axum_sea_forms::services::{FormBuilder, CreateFormInput, CreateStepInput, CreateFieldInput};
+/// use anyform::services::{FormBuilder, CreateFormInput, CreateStepInput, CreateFieldInput};
 ///
 /// let input = CreateFormInput::new("Contact Form", "contact")
 ///     .description("Get in touch with us")

@@ -1,10 +1,10 @@
-//! Error types for axum-sea-forms.
+//! Error types for anyform.
 
 use axum::response::{IntoResponse, Response};
 use http::StatusCode;
 use std::collections::HashMap;
 
-/// Core error type for axum-sea-forms.
+/// Core error type for anyform.
 #[derive(Debug, Clone, thiserror::Error)]
 pub enum FormError {
     #[error("Form not found: {0}")]
@@ -122,12 +122,12 @@ impl From<evalexpr::EvalexprError> for FormError {
 /// Trait for converting FormError to your API response type.
 ///
 /// Implement this trait on your own response type to integrate
-/// axum-sea-forms errors with your API envelope pattern.
+/// anyform errors with your API envelope pattern.
 ///
 /// # Example
 ///
 /// ```rust,ignore
-/// use axum_sea_forms::{FormError, IntoApiError};
+/// use anyform::{FormError, IntoApiError};
 ///
 /// impl IntoApiError for ApiResponse<()> {
 ///     type Response = Self;
