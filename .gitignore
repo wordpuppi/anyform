@@ -7,3 +7,16 @@ Cargo.lock
 .DS_Store
 .idea/
 .vscode/
+
+# Node.js
+node_modules/
+.next/
+*.tsbuildinfo
+
+# Build outputs (keep anyform-js/dist/ for npm)
+anyform-core/dist/
+anyform-react/dist/
+anyform-next/dist/
+
+# WASM build output (anyform-client)
+anyform-client/pkg/

@@ -1,0 +1,243 @@
+/**
+ * Anyform - Frontend Styles
+ *
+ * Customize by overriding CSS variables in your theme:
+ *
+ * :root {
+ *   --af-color-primary: #8b5cf6;
+ *   --af-border-radius: 8px;
+ * }
+ */
+
+:root {
+    /* Colors */
+    --af-color-primary: #0073aa;
+    --af-color-primary-hover: #005a87;
+    --af-color-error: #dc2626;
+    --af-color-success: #10b981;
+    --af-color-success-bg: #ecfdf5;
+    --af-color-success-text: #065f46;
+    --af-color-text: #1f2937;
+    --af-color-text-muted: #666;
+    --af-color-text-secondary: #374151;
+    --af-color-border: #ccc;
+    --af-color-bg: #fff;
+    --af-color-bg-secondary: #e5e7eb;
+    --af-color-bg-secondary-hover: #d1d5db;
+
+    /* Spacing */
+    --af-spacing-field: 1rem;
+    --af-spacing-input: 0.5rem;
+    --af-spacing-button: 0.75rem 1.5rem;
+    --af-spacing-nav: 1.5rem;
+
+    /* Typography */
+    --af-font-size-base: 1rem;
+    --af-font-size-small: 0.875rem;
+    --af-font-size-step-title: 1.25rem;
+    --af-font-size-success: 1.125rem;
+
+    /* Borders */
+    --af-border-radius: 4px;
+    --af-border-radius-large: 8px;
+    --af-border-width: 1px;
+
+    /* Layout */
+    --af-form-max-width: 600px;
+    --af-textarea-min-height: 100px;
+}
+
+/* Form container */
+.af-form {
+    max-width: var(--af-form-max-width);
+    margin: 0 auto;
+}
+
+/* Steps (multi-step visibility) */
+.af-step:not([data-af-visible="true"]) {
+    display: none;
+}
+
+.af-step-title {
+    margin: 0 0 0.5rem;
+    font-size: var(--af-font-size-step-title);
+}
+
+.af-step-description {
+    margin: 0 0 var(--af-spacing-field);
+    color: var(--af-color-text-muted);
+}
+
+/* Fields */
+.af-field {
+    margin-bottom: var(--af-spacing-field);
+}
+
+.af-field:not([data-af-visible="true"]) {
+    display: none;
+}
+
+.af-field label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.af-field input[type="text"],
+.af-field input[type="email"],
+.af-field input[type="url"],
+.af-field input[type="tel"],
+.af-field input[type="number"],
+.af-field input[type="date"],
+.af-field input[type="time"],
+.af-field input[type="password"],
+.af-field textarea,
+.af-field select {
+    width: 100%;
+    padding: var(--af-spacing-input);
+    border: var(--af-border-width) solid var(--af-color-border);
+    border-radius: var(--af-border-radius);
+    font-size: var(--af-font-size-base);
+    box-sizing: border-box;
+}
+
+.af-field textarea {
+    resize: vertical;
+    min-height: var(--af-textarea-min-height);
+}
+
+.af-field input:focus,
+.af-field textarea:focus,
+.af-field select:focus {
+    outline: none;
+    border-color: var(--af-color-primary);
+    box-shadow: 0 0 0 1px var(--af-color-primary);
+}
+
+/* Error state */
+.af-field.af-error input,
+.af-field.af-error textarea,
+.af-field.af-error select {
+    border-color: var(--af-color-error);
+}
+
+.af-error-message {
+    color: var(--af-color-error);
+    font-size: var(--af-font-size-small);
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+}
+
+.af-error-message:empty {
+    display: none;
+}
+
+/* Required indicator */
+.af-required {
+    color: var(--af-color-error);
+    margin-left: 0.125rem;
+}
+
+/* Help text */
+.af-help-text {
+    color: var(--af-color-text-muted);
+    font-size: var(--af-font-size-small);
+    margin-top: 0.25rem;
+}
+
+/* Radio and checkbox groups */
+.af-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.af-radio,
+.af-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.af-radio input,
+.af-checkbox input {
+    margin: 0;
+}
+
+/* Navigation buttons */
+.af-navigation {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: var(--af-spacing-nav);
+}
+
+.af-navigation button {
+    padding: var(--af-spacing-button);
+    border: none;
+    border-radius: var(--af-border-radius);
+    font-size: var(--af-font-size-base);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.af-prev {
+    background-color: var(--af-color-bg-secondary);
+    color: var(--af-color-text-secondary);
+}
+
+.af-prev:hover:not(:disabled) {
+    background-color: var(--af-color-bg-secondary-hover);
+}
+
+.af-prev:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.af-next,
+.af-submit {
+    background-color: var(--af-color-primary);
+    color: white;
+}
+
+.af-next:hover,
+.af-submit:hover {
+    background-color: var(--af-color-primary-hover);
+}
+
+/* Success message */
+.af-success-message {
+    padding: 1.5rem;
+    background-color: var(--af-color-success-bg);
+    border: var(--af-border-width) solid var(--af-color-success);
+    border-radius: var(--af-border-radius-large);
+    color: var(--af-color-success-text);
+    text-align: center;
+}
+
+.af-success-message p {
+    margin: 0;
+    font-size: var(--af-font-size-success);
+}
+
+/* Admin error messages (shown to logged-in admins) */
+.af-admin-error {
+    background: #fef2f2;
+    border: 1px solid #dc2626;
+    color: #dc2626;
+    padding: 1rem;
+    border-radius: var(--af-border-radius);
+    font-size: var(--af-font-size-base);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .af-navigation {
+        flex-direction: column;
+    }
+
+    .af-navigation button {
+        width: 100%;
+    }
+}

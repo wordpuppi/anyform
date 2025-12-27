@@ -1,0 +1,51 @@
+{
+  "name": "@anyform/core",
+  "version": "0.4.3",
+  "description": "Pure TypeScript form validation, condition evaluation, and state management for anyform",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./hydrate": {
+      "types": "./dist/hydrate.d.ts",
+      "import": "./dist/hydrate.js",
+      "require": "./dist/hydrate.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "build:wp": "tsup src/hydrate.ts --format iife --global-name AnyformCore --minify --out-dir ../anyform-wordpress/assets/js --no-dts",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epenabella/anyform"
+  },
+  "keywords": [
+    "forms",
+    "validation",
+    "typescript",
+    "headless",
+    "anyform"
+  ],
+  "license": "MIT"
+}

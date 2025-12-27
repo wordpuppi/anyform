@@ -1,0 +1,65 @@
+{
+  "name": "@anyform/react",
+  "version": "0.4.3",
+  "description": "React hooks for anyform - headless form state, validation, and multi-step navigation",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tailwind": {
+      "types": "./dist/utils/tailwind.d.ts",
+      "import": "./dist/utils/tailwind.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@anyform/core": "file:../anyform-core"
+  },
+  "optionalDependencies": {
+    "anyform-js": "file:../anyform-js"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "jsdom": "^23.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epenabella/anyform"
+  },
+  "keywords": [
+    "react",
+    "forms",
+    "wasm",
+    "validation",
+    "headless",
+    "anyform"
+  ],
+  "license": "MIT"
+}

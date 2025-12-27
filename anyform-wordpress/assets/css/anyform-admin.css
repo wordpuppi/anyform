@@ -1,0 +1,21 @@
+/**
+ * Anyform - Admin Styles
+ */
+
+/* Editor area - use monospace for JSON */
+#post-body-content .wp-editor-area,
+.af_form .wp-editor-area {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Shortcode box styling */
+#af_form_shortcode code {
+    display: block;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    word-break: break-all;
+    font-size: 13px;
+}
