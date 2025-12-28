@@ -121,7 +121,9 @@ class AF_Email {
         $result = wp_mail($to, $subject, $body, $headers);
 
         if (!$result) {
-            error_log('Anyform: wp_mail() failed to send email to ' . $to);
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: wp_mail() failed to send email to ' . $to);
+            }
         }
 
         return $result;
@@ -189,13 +191,17 @@ class AF_Email {
         ]);
 
         if (is_wp_error($response)) {
-            error_log('Anyform: SendGrid error - ' . $response->get_error_message());
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: SendGrid error - ' . $response->get_error_message());
+            }
             return false;
         }
 
         $code = wp_remote_retrieve_response_code($response);
         if ($code >= 400) {
-            error_log('Anyform: SendGrid failed with code ' . $code . ' - ' . wp_remote_retrieve_body($response));
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: SendGrid failed with code ' . $code . ' - ' . wp_remote_retrieve_body($response));
+            }
             return false;
         }
 
@@ -212,7 +218,7 @@ class AF_Email {
 
         $domain = get_option('af_email_api_endpoint'); // Reuse endpoint field for domain
         if (empty($domain)) {
-            $domain = 'mg.' . parse_url(home_url(), PHP_URL_HOST);
+            $domain = 'mg.' . wp_parse_url(home_url(), PHP_URL_HOST);
         }
 
         $response = wp_remote_post("https://api.mailgun.net/v3/{$domain}/messages", [
@@ -229,13 +235,17 @@ class AF_Email {
         ]);
 
         if (is_wp_error($response)) {
-            error_log('Anyform: Mailgun error - ' . $response->get_error_message());
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: Mailgun error - ' . $response->get_error_message());
+            }
             return false;
         }
 
         $code = wp_remote_retrieve_response_code($response);
         if ($code >= 400) {
-            error_log('Anyform: Mailgun failed with code ' . $code . ' - ' . wp_remote_retrieve_body($response));
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: Mailgun failed with code ' . $code . ' - ' . wp_remote_retrieve_body($response));
+            }
             return false;
         }
 
@@ -273,13 +283,17 @@ class AF_Email {
         ]);
 
         if (is_wp_error($response)) {
-            error_log('Anyform: Custom API error - ' . $response->get_error_message());
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: Custom API error - ' . $response->get_error_message());
+            }
             return false;
         }
 
         $code = wp_remote_retrieve_response_code($response);
         if ($code >= 400) {
-            error_log('Anyform: Custom API failed with code ' . $code . ' - ' . wp_remote_retrieve_body($response));
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Anyform: Custom API failed with code ' . $code . ' - ' . wp_remote_retrieve_body($response));
+            }
             return false;
         }
 

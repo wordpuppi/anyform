@@ -96,36 +96,36 @@ class AF_Submissions {
         }
         ?>
         <div class="wrap">
-            <h1><?php _e('Form Submissions', 'anyform'); ?></h1>
+            <h1><?php esc_html_e('Form Submissions', 'anyform'); ?></h1>
 
             <!-- Filter by form -->
             <form method="get" style="margin: 1rem 0;">
                 <input type="hidden" name="post_type" value="af_form">
                 <input type="hidden" name="page" value="anyform-submissions">
-                <label for="form_id"><?php _e('Filter by form:', 'anyform'); ?></label>
+                <label for="form_id"><?php esc_html_e('Filter by form:', 'anyform'); ?></label>
                 <select name="form_id" id="form_id">
-                    <option value="0"><?php _e('All forms', 'anyform'); ?></option>
+                    <option value="0"><?php esc_html_e('All forms', 'anyform'); ?></option>
                     <?php foreach ($forms as $form): ?>
-                        <option value="<?php echo $form->ID; ?>" <?php selected($filter_form, $form->ID); ?>>
+                        <option value="<?php echo esc_attr($form->ID); ?>" <?php selected($filter_form, $form->ID); ?>>
                             <?php echo esc_html($form->post_title); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit" class="button"><?php _e('Filter', 'anyform'); ?></button>
+                <button type="submit" class="button"><?php esc_html_e('Filter', 'anyform'); ?></button>
             </form>
 
             <?php if (empty($submissions)): ?>
-                <p><?php _e('No submissions found.', 'anyform'); ?></p>
+                <p><?php esc_html_e('No submissions found.', 'anyform'); ?></p>
             <?php else: ?>
                 <form method="post">
                     <?php wp_nonce_field('af_bulk_submissions'); ?>
                     <div class="tablenav top">
                         <div class="alignleft actions bulkactions">
                             <select name="action">
-                                <option value="-1"><?php _e('Bulk actions', 'anyform'); ?></option>
-                                <option value="delete"><?php _e('Delete', 'anyform'); ?></option>
+                                <option value="-1"><?php esc_html_e('Bulk actions', 'anyform'); ?></option>
+                                <option value="delete"><?php esc_html_e('Delete', 'anyform'); ?></option>
                             </select>
-                            <button type="submit" class="button action"><?php _e('Apply', 'anyform'); ?></button>
+                            <button type="submit" class="button action"><?php esc_html_e('Apply', 'anyform'); ?></button>
                         </div>
                     </div>
 
@@ -135,11 +135,11 @@ class AF_Submissions {
                                 <td class="manage-column column-cb check-column">
                                     <input type="checkbox" id="cb-select-all">
                                 </td>
-                                <th><?php _e('ID', 'anyform'); ?></th>
-                                <th><?php _e('Form', 'anyform'); ?></th>
-                                <th><?php _e('Email', 'anyform'); ?></th>
-                                <th><?php _e('Date', 'anyform'); ?></th>
-                                <th><?php _e('Actions', 'anyform'); ?></th>
+                                <th><?php esc_html_e('ID', 'anyform'); ?></th>
+                                <th><?php esc_html_e('Form', 'anyform'); ?></th>
+                                <th><?php esc_html_e('Email', 'anyform'); ?></th>
+                                <th><?php esc_html_e('Date', 'anyform'); ?></th>
+                                <th><?php esc_html_e('Actions', 'anyform'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,24 +147,24 @@ class AF_Submissions {
                                 <?php
                                 $data = json_decode($sub->data, true) ?: [];
                                 $email = $data['email'] ?? $data['Email'] ?? '';
-                                $form_title = get_the_title($sub->form_id) ?: __('(deleted)', 'anyform');
+                                $form_title = get_the_title($sub->form_id) ?: esc_html__('(deleted)', 'anyform');
                                 ?>
                                 <tr>
                                     <th class="check-column">
-                                        <input type="checkbox" name="submissions[]" value="<?php echo $sub->id; ?>">
+                                        <input type="checkbox" name="submissions[]" value="<?php echo esc_attr($sub->id); ?>">
                                     </th>
-                                    <td><?php echo $sub->id; ?></td>
+                                    <td><?php echo esc_html($sub->id); ?></td>
                                     <td><?php echo esc_html($form_title); ?></td>
                                     <td><?php echo esc_html($email); ?></td>
                                     <td><?php echo esc_html($sub->created_at); ?></td>
                                     <td>
                                         <a href="<?php echo esc_url(add_query_arg('view', $sub->id)); ?>" class="button button-small">
-                                            <?php _e('View', 'anyform'); ?>
+                                            <?php esc_html_e('View', 'anyform'); ?>
                                         </a>
                                         <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'delete', 'submission' => $sub->id]), 'af_delete_submission')); ?>"
                                            class="button button-small"
                                            onclick="return confirm('<?php esc_attr_e('Delete this submission?', 'anyform'); ?>');">
-                                            <?php _e('Delete', 'anyform'); ?>
+                                            <?php esc_html_e('Delete', 'anyform'); ?>
                                         </a>
                                     </td>
                                 </tr>
@@ -178,11 +178,14 @@ class AF_Submissions {
                 <!-- View Modal -->
                 <div id="af-view-modal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100000; display: flex; align-items: center; justify-content: center;">
                     <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
-                        <h2><?php printf(__('Submission #%d', 'anyform'), $view_submission->id); ?></h2>
-                        <p><strong><?php _e('Date:', 'anyform'); ?></strong> <?php echo esc_html($view_submission->created_at); ?></p>
-                        <p><strong><?php _e('IP:', 'anyform'); ?></strong> <?php echo esc_html($view_submission->ip_address ?: 'N/A'); ?></p>
+                        <?php
+                        // translators: %d is the submission ID number
+                        ?>
+                        <h2><?php printf(esc_html__('Submission #%d', 'anyform'), $view_submission->id); ?></h2>
+                        <p><strong><?php esc_html_e('Date:', 'anyform'); ?></strong> <?php echo esc_html($view_submission->created_at); ?></p>
+                        <p><strong><?php esc_html_e('IP:', 'anyform'); ?></strong> <?php echo esc_html($view_submission->ip_address ?: 'N/A'); ?></p>
 
-                        <h3><?php _e('Data', 'anyform'); ?></h3>
+                        <h3><?php esc_html_e('Data', 'anyform'); ?></h3>
                         <table class="widefat">
                             <?php
                             $data = json_decode($view_submission->data, true) ?: [];
@@ -198,7 +201,7 @@ class AF_Submissions {
 
                         <p style="margin-top: 1.5rem;">
                             <a href="<?php echo esc_url(remove_query_arg('view')); ?>" class="button button-primary">
-                                <?php _e('Close', 'anyform'); ?>
+                                <?php esc_html_e('Close', 'anyform'); ?>
                             </a>
                         </p>
                     </div>

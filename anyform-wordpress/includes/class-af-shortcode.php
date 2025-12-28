@@ -30,7 +30,7 @@ class AF_Shortcode {
         if (empty($atts['slug'])) {
             if (current_user_can('edit_posts')) {
                 $this->has_form = true; // Enqueue CSS for error styling
-                return '<div class="af-error af-admin-error">' . __('Anyform: slug attribute required', 'anyform') . '</div>';
+                return '<div class="af-error af-admin-error">' . esc_html__('Anyform: slug attribute required', 'anyform') . '</div>';
             }
             return '';
         }
@@ -44,7 +44,7 @@ class AF_Shortcode {
             $settings = $form ? get_post_meta($form->ID, 'af_form_settings', true) : [];
             $message = !empty($settings['success_message'])
                 ? $settings['success_message']
-                : __('Thank you for your submission!', 'anyform');
+                : esc_html__('Thank you for your submission!', 'anyform');
 
             return '<div class="af-success-message" role="alert" aria-live="assertive"><p>' . esc_html($message) . '</p></div>';
         }
@@ -53,7 +53,8 @@ class AF_Shortcode {
         if (!$form || $form->post_status !== 'publish') {
             if (current_user_can('edit_posts')) {
                 $this->has_form = true; // Enqueue CSS for error styling
-                return '<div class="af-error af-admin-error">' . sprintf(__('Anyform: form not found: %s', 'anyform'), esc_html($atts['slug'])) . '</div>';
+                // translators: %s: form slug
+                return '<div class="af-error af-admin-error">' . sprintf(esc_html__('Anyform: form not found: %s', 'anyform'), esc_html($atts['slug'])) . '</div>';
             }
             return '';
         }
@@ -62,7 +63,8 @@ class AF_Shortcode {
         if (!$json || empty($json['steps'])) {
             if (current_user_can('edit_posts')) {
                 $this->has_form = true; // Enqueue CSS for error styling
-                return '<div class="af-error af-admin-error">' . sprintf(__('Anyform: invalid form JSON for: %s', 'anyform'), esc_html($atts['slug'])) . '</div>';
+                // translators: %s: form slug
+                return '<div class="af-error af-admin-error">' . sprintf(esc_html__('Anyform: invalid form JSON for: %s', 'anyform'), esc_html($atts['slug'])) . '</div>';
             }
             return '';
         }
@@ -90,7 +92,7 @@ class AF_Shortcode {
 
         ob_start();
         ?>
-        <form data-af-form="<?php echo $slug; ?>"
+        <form data-af-form="<?php echo esc_attr($slug); ?>"
               id="<?php echo esc_attr($form_id); ?>"
               action="<?php echo esc_url($action_url); ?>"
               method="post"
@@ -99,7 +101,7 @@ class AF_Shortcode {
             <?php wp_nonce_field("af_submit_{$slug}", 'af_nonce'); ?>
 
             <!-- Honeypot field for spam protection -->
-            <input type="text" name="af_hp_<?php echo $slug; ?>"
+            <input type="text" name="af_hp_<?php echo esc_attr($slug); ?>"
                    style="opacity:0;position:absolute;top:0;left:0;height:0;width:0;z-index:-1;"
                    tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -110,14 +112,14 @@ class AF_Shortcode {
             <div class="af-navigation">
                 <?php if ($is_multi_step): ?>
                     <button type="button" class="af-prev" disabled>
-                        <?php _e('Back', 'anyform'); ?>
+                        <?php esc_html_e('Back', 'anyform'); ?>
                     </button>
                     <button type="button" class="af-next">
-                        <?php _e('Next', 'anyform'); ?>
+                        <?php esc_html_e('Next', 'anyform'); ?>
                     </button>
                 <?php endif; ?>
                 <button type="submit" class="af-submit" <?php echo $is_multi_step ? 'style="display:none"' : ''; ?>>
-                    <?php echo esc_html($json['settings']['submit_label'] ?? __('Submit', 'anyform')); ?>
+                    <?php echo esc_html($json['settings']['submit_label'] ?? esc_html__('Submit', 'anyform')); ?>
                 </button>
             </div>
         </form>
@@ -177,13 +179,13 @@ class AF_Shortcode {
         ob_start();
         ?>
         <div class="af-field"
-             data-af-field="<?php echo $name; ?>"
+             data-af-field="<?php echo esc_attr($name); ?>"
              data-af-visible="true"
              data-af-validation='<?php echo esc_attr($validation); ?>'
              <?php if ($condition): ?>data-af-condition='<?php echo esc_attr($condition); ?>'<?php endif; ?>>
 
-            <label for="<?php echo $name; ?>">
-                <?php echo $label; ?>
+            <label for="<?php echo esc_attr($name); ?>">
+                <?php echo esc_html($label); ?>
                 <?php if ($required): ?>
                     <span class="af-required" aria-hidden="true">*</span>
                 <?php endif; ?>
@@ -191,10 +193,10 @@ class AF_Shortcode {
 
             <?php echo $this->render_input($field, $name, $placeholder, $required, $describedby); ?>
 
-            <div class="af-error-message" id="af-error-<?php echo $name; ?>" role="alert" aria-live="polite"></div>
+            <div class="af-error-message" id="af-error-<?php echo esc_attr($name); ?>" role="alert" aria-live="polite"></div>
 
             <?php if (!empty($field['help_text'])): ?>
-                <div class="af-help-text" id="af-help-<?php echo $name; ?>"><?php echo esc_html($field['help_text']); ?></div>
+                <div class="af-help-text" id="af-help-<?php echo esc_attr($name); ?>"><?php echo esc_html($field['help_text']); ?></div>
             <?php endif; ?>
         </div>
         <?php

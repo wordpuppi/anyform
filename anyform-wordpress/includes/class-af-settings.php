@@ -171,23 +171,23 @@ class AF_Settings {
                 <?php settings_fields('anyform_settings'); ?>
 
                 <!-- Email Method -->
-                <h2><?php _e('Email Method', 'anyform'); ?></h2>
+                <h2><?php esc_html_e('Email Method', 'anyform'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Send emails via', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Send emails via', 'anyform'); ?></th>
                         <td>
                             <fieldset>
                                 <label>
                                     <input type="radio" name="af_email_method" value="wp_mail"
                                         <?php checked($method, 'wp_mail'); ?>>
-                                    <?php _e('WordPress wp_mail()', 'anyform'); ?>
-                                    <p class="description"><?php _e('Configure SMTP via a plugin like WP Mail SMTP', 'anyform'); ?></p>
+                                    <?php esc_html_e('WordPress wp_mail()', 'anyform'); ?>
+                                    <p class="description"><?php esc_html_e('Configure SMTP via a plugin like WP Mail SMTP', 'anyform'); ?></p>
                                 </label>
                                 <br><br>
                                 <label>
                                     <input type="radio" name="af_email_method" value="api"
                                         <?php checked($method, 'api'); ?>>
-                                    <?php _e('External API', 'anyform'); ?>
+                                    <?php esc_html_e('External API', 'anyform'); ?>
                                 </label>
                             </fieldset>
                         </td>
@@ -196,27 +196,27 @@ class AF_Settings {
 
                 <!-- API Settings (shown when method = api) -->
                 <div id="af-api-settings" style="<?php echo $method !== 'api' ? 'display:none;' : ''; ?>">
-                    <h3><?php _e('API Settings', 'anyform'); ?></h3>
+                    <h3><?php esc_html_e('API Settings', 'anyform'); ?></h3>
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><?php _e('Provider', 'anyform'); ?></th>
+                            <th scope="row"><?php esc_html_e('Provider', 'anyform'); ?></th>
                             <td>
                                 <select name="af_email_api_provider" id="af_email_api_provider">
                                     <option value="sendgrid" <?php selected($api_provider, 'sendgrid'); ?>>SendGrid</option>
                                     <option value="mailgun" <?php selected($api_provider, 'mailgun'); ?>>Mailgun</option>
-                                    <option value="custom" <?php selected($api_provider, 'custom'); ?>><?php _e('Custom API', 'anyform'); ?></option>
+                                    <option value="custom" <?php selected($api_provider, 'custom'); ?>><?php esc_html_e('Custom API', 'anyform'); ?></option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php _e('API Key', 'anyform'); ?></th>
+                            <th scope="row"><?php esc_html_e('API Key', 'anyform'); ?></th>
                             <td>
                                 <input type="password" name="af_email_api_key" class="regular-text"
                                     value="<?php echo esc_attr(get_option('af_email_api_key')); ?>">
                             </td>
                         </tr>
                         <tr id="af-custom-endpoint" style="<?php echo $api_provider !== 'custom' ? 'display:none;' : ''; ?>">
-                            <th scope="row"><?php _e('API Endpoint', 'anyform'); ?></th>
+                            <th scope="row"><?php esc_html_e('API Endpoint', 'anyform'); ?></th>
                             <td>
                                 <input type="url" name="af_email_api_endpoint" class="regular-text"
                                     value="<?php echo esc_attr(get_option('af_email_api_endpoint')); ?>"
@@ -227,54 +227,57 @@ class AF_Settings {
                 </div>
 
                 <!-- Test Email -->
-                <h2><?php _e('Test Email', 'anyform'); ?></h2>
+                <h2><?php esc_html_e('Test Email', 'anyform'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Test Configuration', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Test Configuration', 'anyform'); ?></th>
                         <td>
                             <button type="button" id="af-test-email" class="button">
-                                <?php _e('Send Test Email', 'anyform'); ?>
+                                <?php esc_html_e('Send Test Email', 'anyform'); ?>
                             </button>
                             <span id="af-test-result" style="margin-left: 10px;"></span>
                             <p class="description">
-                                <?php printf(__('Sends a test email to %s using your current settings.', 'anyform'), get_option('admin_email')); ?>
+                                <?php
+                                // translators: %s is the admin email address
+                                printf(esc_html__('Sends a test email to %s using your current settings.', 'anyform'), esc_html(get_option('admin_email')));
+                                ?>
                             </p>
                         </td>
                     </tr>
                 </table>
 
                 <!-- Admin Notification -->
-                <h2><?php _e('Admin Notification', 'anyform'); ?></h2>
+                <h2><?php esc_html_e('Admin Notification', 'anyform'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Enable', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Enable', 'anyform'); ?></th>
                         <td>
                             <label>
                                 <input type="checkbox" name="af_email_admin_enabled" value="1"
                                     <?php checked(get_option('af_email_admin_enabled')); ?>>
-                                <?php _e('Send email to admin on new submissions', 'anyform'); ?>
+                                <?php esc_html_e('Send email to admin on new submissions', 'anyform'); ?>
                             </label>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('To', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('To', 'anyform'); ?></th>
                         <td>
                             <input type="text" name="af_email_admin_to" class="regular-text"
                                 value="<?php echo esc_attr(get_option('af_email_admin_to', get_option('admin_email'))); ?>"
                                 placeholder="admin@example.com, sales@example.com">
-                            <p class="description"><?php _e('Comma-separated list of email addresses', 'anyform'); ?></p>
+                            <p class="description"><?php esc_html_e('Comma-separated list of email addresses', 'anyform'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Subject', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Subject', 'anyform'); ?></th>
                         <td>
                             <input type="text" name="af_email_admin_subject" class="regular-text"
                                 value="<?php echo esc_attr(get_option('af_email_admin_subject', 'New form submission: {form_name}')); ?>">
-                            <p class="description"><?php _e('Use {form_name} for the form title', 'anyform'); ?></p>
+                            <p class="description"><?php esc_html_e('Use {form_name} for the form title', 'anyform'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('From Name', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('From Name', 'anyform'); ?></th>
                         <td>
                             <input type="text" name="af_email_admin_from_name" class="regular-text"
                                 value="<?php echo esc_attr(get_option('af_email_admin_from_name', get_bloginfo('name'))); ?>"
@@ -282,7 +285,7 @@ class AF_Settings {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('From Email', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('From Email', 'anyform'); ?></th>
                         <td>
                             <input type="email" name="af_email_admin_from_email" class="regular-text"
                                 value="<?php echo esc_attr(get_option('af_email_admin_from_email', get_option('admin_email'))); ?>"
@@ -292,40 +295,40 @@ class AF_Settings {
                 </table>
 
                 <!-- Auto-Reply -->
-                <h2><?php _e('Auto-Reply', 'anyform'); ?></h2>
+                <h2><?php esc_html_e('Auto-Reply', 'anyform'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Enable', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Enable', 'anyform'); ?></th>
                         <td>
                             <label>
                                 <input type="checkbox" name="af_email_reply_enabled" value="1"
                                     <?php checked(get_option('af_email_reply_enabled')); ?>>
-                                <?php _e('Send confirmation email to form submitter', 'anyform'); ?>
+                                <?php esc_html_e('Send confirmation email to form submitter', 'anyform'); ?>
                             </label>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Email Field', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Email Field', 'anyform'); ?></th>
                         <td>
                             <input type="text" name="af_email_reply_field" class="regular-text"
                                 value="<?php echo esc_attr(get_option('af_email_reply_field', 'email')); ?>">
-                            <p class="description"><?php _e('Form field name containing submitter email', 'anyform'); ?></p>
+                            <p class="description"><?php esc_html_e('Form field name containing submitter email', 'anyform'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Subject', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Subject', 'anyform'); ?></th>
                         <td>
                             <input type="text" name="af_email_reply_subject" class="regular-text"
                                 value="<?php echo esc_attr(get_option('af_email_reply_subject', 'Thank you for contacting us')); ?>">
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Body', 'anyform'); ?></th>
+                        <th scope="row"><?php esc_html_e('Body', 'anyform'); ?></th>
                         <td>
                             <textarea name="af_email_reply_body" class="large-text" rows="5"><?php
                                 echo esc_textarea(get_option('af_email_reply_body', 'We received your message and will respond soon.'));
                             ?></textarea>
-                            <p class="description"><?php _e('HTML is allowed', 'anyform'); ?></p>
+                            <p class="description"><?php esc_html_e('HTML is allowed', 'anyform'); ?></p>
                         </td>
                     </tr>
                 </table>
@@ -358,7 +361,7 @@ class AF_Settings {
 
                 $.post(ajaxurl, {
                     action: 'af_test_email',
-                    nonce: '<?php echo wp_create_nonce('af_test_email'); ?>'
+                    nonce: '<?php echo esc_attr(wp_create_nonce('af_test_email')); ?>'
                 }, function(response) {
                     $result.text(response.message).css('color', response.success ? 'green' : 'red');
                     $btn.prop('disabled', false).text('<?php echo esc_js(__('Send Test Email', 'anyform')); ?>');

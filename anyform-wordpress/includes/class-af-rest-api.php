@@ -63,12 +63,12 @@ class AF_REST_API {
         $form = AF_Post_Type::get_by_slug($slug);
 
         if (!$form || $form->post_status !== 'publish') {
-            return new WP_Error('not_found', __('Form not found', 'anyform'), ['status' => 404]);
+            return new WP_Error('not_found', esc_html__('Form not found', 'anyform'), ['status' => 404]);
         }
 
         $json = AF_Post_Type::get_json($form);
         if (!$json) {
-            return new WP_Error('invalid_json', __('Invalid form JSON', 'anyform'), ['status' => 500]);
+            return new WP_Error('invalid_json', esc_html__('Invalid form JSON', 'anyform'), ['status' => 500]);
         }
 
         // Ensure required fields
@@ -95,7 +95,7 @@ class AF_REST_API {
         $form = AF_Post_Type::get_by_slug($slug);
 
         if (!$form || $form->post_status !== 'publish') {
-            return new WP_Error('not_found', __('Form not found', 'anyform'), ['status' => 404]);
+            return new WP_Error('not_found', esc_html__('Form not found', 'anyform'), ['status' => 404]);
         }
 
         // Check if this is AJAX (JSON) or browser form POST
@@ -119,7 +119,7 @@ class AF_REST_API {
             }
             return rest_ensure_response([
                 'success' => true,
-                'message' => __('Thank you for your submission!', 'anyform'),
+                'message' => esc_html__('Thank you for your submission!', 'anyform'),
             ]);
         }
         // Remove honeypot field from data
@@ -132,16 +132,16 @@ class AF_REST_API {
         unset($data['_wpnonce'], $data['af_nonce'], $data['_wp_http_referer']);
 
         // Save to database
-        $ip = $request->get_header('X-Forwarded-For') ?: $_SERVER['REMOTE_ADDR'] ?? '';
+        $ip = $request->get_header('X-Forwarded-For') ?: (isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '');
         $user_agent = $request->get_header('User-Agent') ?: '';
 
         $submission_id = AF_Database::save_submission($form->ID, $data, $ip, $user_agent);
 
         if (!$submission_id) {
             if (!$is_ajax) {
-                wp_die(__('Failed to save submission', 'anyform'), __('Error', 'anyform'), ['back_link' => true]);
+                wp_die(esc_html__('Failed to save submission', 'anyform'), esc_html__('Error', 'anyform'), ['back_link' => true]);
             }
-            return new WP_Error('save_failed', __('Failed to save submission', 'anyform'), ['status' => 500]);
+            return new WP_Error('save_failed', esc_html__('Failed to save submission', 'anyform'), ['status' => 500]);
         }
 
         // Forward to action_url if configured
@@ -156,7 +156,7 @@ class AF_REST_API {
 
         $success_message = !empty($settings['success_message'])
             ? $settings['success_message']
-            : __('Thank you for your submission!', 'anyform');
+            : esc_html__('Thank you for your submission!', 'anyform');
 
         // For browser form POST, redirect to thank you page
         if (!$is_ajax) {
@@ -185,7 +185,7 @@ class AF_REST_API {
         $form = AF_Post_Type::get_by_slug($slug);
 
         if (!$form) {
-            return new WP_Error('not_found', __('Form not found', 'anyform'), ['status' => 404]);
+            return new WP_Error('not_found', esc_html__('Form not found', 'anyform'), ['status' => 404]);
         }
 
         $submissions = AF_Database::get_submissions($form->ID);

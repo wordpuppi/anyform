@@ -17,7 +17,7 @@ global $wpdb;
 $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}af_submissions");
 
 // Delete all options
-$options = [
+$af_options = [
     'af_email_method',
     'af_email_api_provider',
     'af_email_api_key',
@@ -33,19 +33,19 @@ $options = [
     'af_email_reply_body',
 ];
 
-foreach ($options as $option) {
-    delete_option($option);
+foreach ($af_options as $af_option) {
+    delete_option($af_option);
 }
 
 // Delete all form posts and their meta
-$forms = get_posts([
+$af_forms = get_posts([
     'post_type' => 'af_form',
     'numberposts' => -1,
     'post_status' => 'any',
 ]);
 
-foreach ($forms as $form) {
-    wp_delete_post($form->ID, true);
+foreach ($af_forms as $af_form) {
+    wp_delete_post($af_form->ID, true);
 }
 
 // Clean up any transients

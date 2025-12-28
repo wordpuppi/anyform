@@ -80,13 +80,13 @@ class AF_Post_Type {
         wp_nonce_field('af_form_json', 'af_form_json_nonce');
         ?>
         <p>
-            <label for="af_form_json"><?php _e('Paste your form JSON schema below:', 'anyform'); ?></label>
+            <label for="af_form_json"><?php esc_html_e('Paste your form JSON schema below:', 'anyform'); ?></label>
         </p>
         <textarea id="af_form_json" name="af_form_json" rows="20"
             style="width:100%;font-family:monospace;font-size:13px;"
             placeholder='{"steps":[{"name":"Step 1","fields":[...]}]}'><?php echo esc_textarea($json); ?></textarea>
         <p class="description">
-            <?php _e('Form schema in JSON format. Must contain a "steps" array with fields.', 'anyform'); ?>
+            <?php esc_html_e('Form schema in JSON format. Must contain a "steps" array with fields.', 'anyform'); ?>
         </p>
         <?php
     }
@@ -98,14 +98,14 @@ class AF_Post_Type {
         $settings = get_post_meta($post->ID, 'af_form_settings', true) ?: [];
         ?>
         <p>
-            <label for="af_action_url"><strong><?php _e('Action URL', 'anyform'); ?></strong></label><br>
+            <label for="af_action_url"><strong><?php esc_html_e('Action URL', 'anyform'); ?></strong></label><br>
             <input type="url" id="af_action_url" name="af_settings[action_url]"
                 value="<?php echo esc_attr($settings['action_url'] ?? ''); ?>"
                 class="widefat" placeholder="https://webhook.site/xxx">
-            <span class="description"><?php _e('Optional: Forward submissions to external URL', 'anyform'); ?></span>
+            <span class="description"><?php esc_html_e('Optional: Forward submissions to external URL', 'anyform'); ?></span>
         </p>
         <p>
-            <label for="af_success_message"><strong><?php _e('Success Message', 'anyform'); ?></strong></label><br>
+            <label for="af_success_message"><strong><?php esc_html_e('Success Message', 'anyform'); ?></strong></label><br>
             <input type="text" id="af_success_message" name="af_settings[success_message]"
                 value="<?php echo esc_attr($settings['success_message'] ?? ''); ?>"
                 class="widefat" placeholder="Thank you for your submission!">
@@ -118,7 +118,7 @@ class AF_Post_Type {
      */
     public static function render_shortcode_meta_box($post) {
         if ($post->post_status === 'auto-draft') {
-            echo '<p>' . __('Save the form first to get the shortcode.', 'anyform') . '</p>';
+            echo '<p>' . esc_html__('Save the form first to get the shortcode.', 'anyform') . '</p>';
             return;
         }
         $slug = $post->post_name ?: sanitize_title($post->post_title);
@@ -143,8 +143,8 @@ class AF_Post_Type {
 
         // Save JSON
         if (isset($_POST['af_form_json_nonce']) &&
-            wp_verify_nonce($_POST['af_form_json_nonce'], 'af_form_json')) {
-            $json = isset($_POST['af_form_json']) ? $_POST['af_form_json'] : '';
+            wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['af_form_json_nonce'])), 'af_form_json')) {
+            $json = isset($_POST['af_form_json']) ? wp_unslash($_POST['af_form_json']) : '';
             // Validate it's valid JSON
             if (!empty($json)) {
                 $decoded = json_decode($json);
@@ -153,8 +153,8 @@ class AF_Post_Type {
                     set_transient('af_json_error_' . $post_id, json_last_error_msg(), 30);
                     // Don't save invalid JSON
                 } else {
-                    // Valid JSON - save it
-                    update_post_meta($post_id, 'af_form_json', wp_unslash($json));
+                    // Valid JSON - save it (already unslashed above)
+                    update_post_meta($post_id, 'af_form_json', $json);
                     // Clear any previous error
                     delete_transient('af_json_error_' . $post_id);
                 }
@@ -166,13 +166,13 @@ class AF_Post_Type {
 
         // Save settings
         if (isset($_POST['af_form_json_nonce']) &&
-            wp_verify_nonce($_POST['af_form_json_nonce'], 'af_form_json')) {
+            wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['af_form_json_nonce'])), 'af_form_json')) {
             $settings = [];
             if (isset($_POST['af_settings']['action_url'])) {
-                $settings['action_url'] = esc_url_raw($_POST['af_settings']['action_url']);
+                $settings['action_url'] = esc_url_raw(wp_unslash($_POST['af_settings']['action_url']));
             }
             if (isset($_POST['af_settings']['success_message'])) {
-                $settings['success_message'] = sanitize_text_field($_POST['af_settings']['success_message']);
+                $settings['success_message'] = sanitize_text_field(wp_unslash($_POST['af_settings']['success_message']));
             }
             update_post_meta($post_id, 'af_form_settings', $settings);
         }
@@ -206,9 +206,9 @@ class AF_Post_Type {
         $error = get_transient('af_json_error_' . $post->ID);
         if ($error) {
             delete_transient('af_json_error_' . $post->ID);
-            echo '<div class="notice notice-error"><p><strong>' . __('JSON Error:', 'anyform') . '</strong> '
+            echo '<div class="notice notice-error"><p><strong>' . esc_html__('JSON Error:', 'anyform') . '</strong> '
                 . esc_html($error) . '</p><p>'
-                . __('Your JSON was not saved. Please fix the error and try again.', 'anyform')
+                . esc_html__('Your JSON was not saved. Please fix the error and try again.', 'anyform')
                 . '</p></div>';
         }
     }
