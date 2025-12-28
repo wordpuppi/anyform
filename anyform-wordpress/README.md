@@ -7,7 +7,7 @@ Dynamic forms powered by JSON schemas and WebAssembly.
 - **JSON-Based Forms** - Define forms using a declarative JSON schema
 - **Multi-Step Forms** - Wizard-style forms with Back/Next navigation
 - **Conditional Logic** - Show/hide fields and steps based on user input
-- **Client-Side Validation** - Real-time validation via [anyform-js](https://github.com/epenabella/anyform-js) WASM
+- **Client-Side Validation** - Real-time validation via [@anyform/wasm-js](https://github.com/wordpuppi/anyform) WASM
 - **Email Notifications** - Admin alerts and auto-replies on submission
 - **Webhook Support** - Forward submissions to external services (Zapier, Make, etc.)
 - **Submission Storage** - All submissions stored in `wp_af_submissions` table
@@ -486,7 +486,7 @@ anyform/
 
 ## Development
 
-The frontend uses [anyform-js](https://github.com/epenabella/anyform-js), a WebAssembly library that hydrates the server-rendered HTML with:
+The frontend uses [@anyform/wasm-js](https://github.com/wordpuppi/anyform), a WebAssembly library that hydrates the server-rendered HTML with:
 - Client-side validation
 - Conditional logic evaluation
 - Multi-step navigation

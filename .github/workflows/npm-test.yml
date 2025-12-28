@@ -4,15 +4,17 @@ on:
   push:
     branches: [main]
     paths:
+      - 'anyform-core/**'
       - 'anyform-react/**'
       - 'anyform-next/**'
-      - 'anyform-js/**'
+      - 'anyform-wasm-js/**'
   pull_request:
     branches: [main]
     paths:
+      - 'anyform-core/**'
       - 'anyform-react/**'
       - 'anyform-next/**'
-      - 'anyform-js/**'
+      - 'anyform-wasm-js/**'
 
 jobs:
   test-react:

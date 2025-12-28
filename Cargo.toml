@@ -3,11 +3,11 @@ resolver = "2"
 members = ["anyform", "anyform-client", "migration"]
 
 [workspace.package]
-version = "0.4.0"
+version = "0.5.0"
 edition = "2021"
 rust-version = "1.75"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/anyform-dev/anyform"
+repository = "https://github.com/wordpuppi/anyform"
 keywords = ["anyform", "forms", "database", "web", "survey"]
 categories = ["web-programming", "database"]
 

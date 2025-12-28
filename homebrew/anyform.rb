@@ -1,12 +1,12 @@
 class Anyform < Formula
   desc "Any database. Any form. Zero hassle."
-  homepage "https://github.com/epenabella/anyform"
-  version "0.4.0"
+  homepage "https://github.com/wordpuppi/anyform"
+  version "0.5.0"
   license "MIT"
 
   on_macos do
     on_intel do
-      url "https://github.com/epenabella/anyform/releases/download/v#{version}/anyform-darwin-amd64"
+      url "https://github.com/wordpuppi/anyform/releases/download/v#{version}/anyform-darwin-amd64"
       sha256 "CHECKSUM_PLACEHOLDER"
 
       def install
@@ -14,7 +14,7 @@ class Anyform < Formula
       end
     end
     on_arm do
-      url "https://github.com/epenabella/anyform/releases/download/v#{version}/anyform-darwin-arm64"
+      url "https://github.com/wordpuppi/anyform/releases/download/v#{version}/anyform-darwin-arm64"
       sha256 "CHECKSUM_PLACEHOLDER"
 
       def install
@@ -25,7 +25,7 @@ class Anyform < Formula
 
   on_linux do
     on_intel do
-      url "https://github.com/epenabella/anyform/releases/download/v#{version}/anyform-linux-amd64"
+      url "https://github.com/wordpuppi/anyform/releases/download/v#{version}/anyform-linux-amd64"
       sha256 "CHECKSUM_PLACEHOLDER"
 
       def install
@@ -33,7 +33,7 @@ class Anyform < Formula
       end
     end
     on_arm do
-      url "https://github.com/epenabella/anyform/releases/download/v#{version}/anyform-linux-arm64"
+      url "https://github.com/wordpuppi/anyform/releases/download/v#{version}/anyform-linux-arm64"
       sha256 "CHECKSUM_PLACEHOLDER"
 
       def install

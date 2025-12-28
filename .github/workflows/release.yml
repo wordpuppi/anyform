@@ -138,8 +138,8 @@ jobs:
           context: .
           push: true
           tags: |
-            epenabella/anyform:${{ steps.version.outputs.VERSION }}
-            epenabella/anyform:latest
+            wordpuppi/anyform:${{ steps.version.outputs.VERSION }}
+            wordpuppi/anyform:latest
             ghcr.io/${{ github.repository }}:${{ steps.version.outputs.VERSION }}
             ghcr.io/${{ github.repository }}:latest
 
@@ -170,11 +170,56 @@ jobs:
 
       - name: Copy WASM artifacts to npm package
         run: |
-          cp -r anyform-client/pkg/* anyform-js/wasm/
+          cp -r anyform-client/pkg/* anyform-wasm-js/wasm/
 
-      - name: Publish to npm
+      - name: Build @anyform/core
         run: |
-          cd anyform-js
+          cd anyform-core
+          npm ci
+          npm run build
+
+      - name: Publish @anyform/core
+        run: |
+          cd anyform-core
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build @anyform/wasm-js
+        run: |
+          cd anyform-wasm-js
+          npm ci
+          npm run build
+
+      - name: Publish @anyform/wasm-js
+        run: |
+          cd anyform-wasm-js
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build @anyform/react
+        run: |
+          cd anyform-react
+          npm ci
+          npm run build
+
+      - name: Publish @anyform/react
+        run: |
+          cd anyform-react
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build @anyform/next
+        run: |
+          cd anyform-next
+          npm ci
+          npm run build
+
+      - name: Publish @anyform/next
+        run: |
+          cd anyform-next
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

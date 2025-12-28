@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Anyform
- * Plugin URI: https://github.com/epenabella/anyform
+ * Plugin URI: https://github.com/wordpuppi/anyform
  * Description: Dynamic forms powered by anyform-js WASM client
  * Version: 1.0.0
  * Requires at least: 6.0

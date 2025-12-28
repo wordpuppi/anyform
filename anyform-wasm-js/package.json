@@ -1,6 +1,6 @@
 {
   "name": "@anyform/wasm-js",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "WASM bindings for anyform - form state, validation, and navigation",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,11 +22,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/epenabella/anyform"
+    "url": "https://github.com/wordpuppi/anyform"
   },
-  "homepage": "https://github.com/epenabella/anyform#readme",
+  "homepage": "https://github.com/wordpuppi/anyform#readme",
   "bugs": {
-    "url": "https://github.com/epenabella/anyform/issues"
+    "url": "https://github.com/wordpuppi/anyform/issues"
   },
   "license": "MIT",
   "devDependencies": {

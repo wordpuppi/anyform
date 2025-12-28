@@ -1,6 +1,6 @@
 services:
   anyform:
-    image: epenabella/anyform:latest
+    image: wordpuppi/anyform:latest
     ports:
       - "3000:3000"
     volumes:

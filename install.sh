@@ -2,9 +2,9 @@
 set -e
 
 # anyform installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/epenabella/anyform/main/install.sh | sh
+# Usage: curl -fsSL https://raw.githubusercontent.com/wordpuppi/anyform/main/install.sh | sh
 
-REPO="epenabella/anyform"
+REPO="wordpuppi/anyform"
 BINARY_NAME="anyform"
 INSTALL_DIR="/usr/local/bin"
 

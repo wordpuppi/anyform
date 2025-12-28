@@ -90,8 +90,8 @@ anyform/
 ├── anyform/           # Main Rust library (Axum handlers, SeaORM models)
 ├── anyform-cli/       # CLI binary
 ├── anyform-client/    # WASM client (Rust → WebAssembly)
-├── anyform-core/      # Shared types (Rust)
-├── anyform-js/        # TypeScript WASM bindings (@anyform/wasm-js)
+├── anyform-core/      # TypeScript validation library (@anyform/core)
+├── anyform-wasm-js/   # TypeScript WASM bindings (@anyform/wasm-js)
 ├── anyform-react/     # React hooks (@anyform/react)
 ├── anyform-next/      # Next.js integration (@anyform/next)
 ├── anyform-wordpress/ # WordPress plugin

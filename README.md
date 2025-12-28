@@ -1,6 +1,6 @@
 # anyform
 
-[![Build](https://github.com/epenabella/anyform/actions/workflows/quick-check.yml/badge.svg)](https://github.com/epenabella/anyform/actions/workflows/quick-check.yml)
+[![Build](https://github.com/wordpuppi/anyform/actions/workflows/quick-check.yml/badge.svg)](https://github.com/wordpuppi/anyform/actions/workflows/quick-check.yml)
 [![Crates.io](https://img.shields.io/crates/v/anyform.svg)](https://crates.io/crates/anyform)
 [![npm](https://img.shields.io/npm/v/@anyform/react.svg)](https://www.npmjs.com/package/@anyform/react)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE-MIT)
@@ -14,26 +14,26 @@ A standalone form engine that runs anywhere. Install a single binary, connect yo
 ### macOS (Homebrew)
 
 ```bash
-brew install epenabella/tap/anyform
+brew install wordpuppi/tap/anyform
 ```
 
 ### Linux (curl)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/epenabella/anyform/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/wordpuppi/anyform/main/install.sh | sh
 ```
 
 ### Windows (Scoop)
 
 ```powershell
-scoop bucket add anyform https://github.com/epenabella/scoop-anyform
+scoop bucket add wordpuppi https://github.com/wordpuppi/scoop-wordpuppi
 scoop install anyform
 ```
 
 ### Docker
 
 ```bash
-docker run -p 3000:3000 epenabella/anyform
+docker run -p 3000:3000 wordpuppi/anyform
 ```
 
 ### Cargo (Rust developers)

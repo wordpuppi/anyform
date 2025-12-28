@@ -21,3 +21,10 @@ anyform-wasm-js/node_modules/
 
 # WASM build output (anyform-client)
 anyform-client/pkg/
+
+# Internal planning docs
+docs/to-dos*.md
+docs/*prd*.md
+
+# Local Claude settings
+.claude/settings.local.json
