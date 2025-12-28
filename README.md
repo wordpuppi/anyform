@@ -33,7 +33,7 @@ scoop install anyform
 ### Docker
 
 ```bash
-docker run -p 3000:3000 wordpuppi/anyform
+docker run -p 3000:3000 ghcr.io/wordpuppi/anyform
 ```
 
 ### Cargo (Rust developers)

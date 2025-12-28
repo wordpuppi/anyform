@@ -1,6 +1,6 @@
 services:
   anyform:
-    image: wordpuppi/anyform:latest
+    image: ghcr.io/wordpuppi/anyform:latest
     ports:
       - "3000:3000"
     volumes:
