@@ -1,6 +1,7 @@
 name: Test NPM Packages
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
