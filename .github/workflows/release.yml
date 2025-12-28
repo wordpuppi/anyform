@@ -167,7 +167,7 @@ jobs:
       - name: Build @wordpuppi/anyform-core
         run: |
           cd anyform-core
-          npm ci
+          npm install
           npm run build
 
       - name: Publish @wordpuppi/anyform-core
@@ -180,7 +180,7 @@ jobs:
       - name: Build @wordpuppi/anyform-wasm-js
         run: |
           cd anyform-wasm-js
-          npm ci
+          npm install
           npm run build
 
       - name: Publish @wordpuppi/anyform-wasm-js
@@ -193,7 +193,7 @@ jobs:
       - name: Build @wordpuppi/anyform-react
         run: |
           cd anyform-react
-          npm ci
+          npm install
           npm run build
 
       - name: Publish @wordpuppi/anyform-react
@@ -206,7 +206,7 @@ jobs:
       - name: Build @wordpuppi/anyform-next
         run: |
           cd anyform-next
-          npm ci
+          npm install
           npm run build
 
       - name: Publish @wordpuppi/anyform-next

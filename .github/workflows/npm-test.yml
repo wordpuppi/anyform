@@ -29,12 +29,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: anyform-react/package-lock.json
 
       - name: Install dependencies
         working-directory: anyform-react
-        run: npm ci
+        run: npm install
 
       - name: Build
         working-directory: anyform-react
@@ -62,12 +60,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: anyform-next/package-lock.json
 
       - name: Install dependencies
         working-directory: anyform-next
-        run: npm ci
+        run: npm install
 
       - name: Build
         working-directory: anyform-next
@@ -89,11 +85,11 @@ jobs:
       - name: Install and check @wordpuppi/anyform-react
         working-directory: anyform-react
         run: |
-          npm ci
+          npm install
           npx tsc --noEmit
 
       - name: Install and check @wordpuppi/anyform-next
         working-directory: anyform-next
         run: |
-          npm ci
+          npm install
           npx tsc --noEmit
