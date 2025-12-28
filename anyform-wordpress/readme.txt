@@ -169,15 +169,7 @@ See README.md for a full list of available CSS variables.
 
 == External Services ==
 
-This plugin connects to the following third-party services:
-
-**jsDelivr CDN**
-
-The Anyform JavaScript library is loaded from jsDelivr CDN to power client-side form validation and rendering.
-
-* Service URL: https://cdn.jsdelivr.net/npm/@wordpuppi/anyform-wasm-js/
-* Terms of Use: https://www.jsdelivr.com/terms
-* Privacy Policy: https://www.jsdelivr.com/privacy-policy-jsdelivr-net
+This plugin connects to the following third-party services when configured:
 
 **Email APIs (Optional)**
 

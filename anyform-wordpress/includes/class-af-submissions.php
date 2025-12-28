@@ -178,10 +178,10 @@ class AF_Submissions {
                 <!-- View Modal -->
                 <div id="af-view-modal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100000; display: flex; align-items: center; justify-content: center;">
                     <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
-                        <?php
+                        <h2><?php
                         // translators: %d is the submission ID number
-                        ?>
-                        <h2><?php printf(esc_html__('Submission #%d', 'anyform'), $view_submission->id); ?></h2>
+                        printf(esc_html__('Submission #%d', 'anyform'), (int) $view_submission->id);
+                        ?></h2>
                         <p><strong><?php esc_html_e('Date:', 'anyform'); ?></strong> <?php echo esc_html($view_submission->created_at); ?></p>
                         <p><strong><?php esc_html_e('IP:', 'anyform'); ?></strong> <?php echo esc_html($view_submission->ip_address ?: 'N/A'); ?></p>
 

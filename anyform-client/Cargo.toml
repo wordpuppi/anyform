@@ -1,6 +1,6 @@
 [package]
 name = "anyform-client"
-version = "0.4.0"
+version = "0.5.1"
 edition = "2021"
 description = "WASM client for anyform - browser-side form handling"
 license = "MIT OR Apache-2.0"

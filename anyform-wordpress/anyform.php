@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
 define('ANYFORM_VERSION', '1.0.0');
 define('ANYFORM_PATH', plugin_dir_path(__FILE__));
 define('ANYFORM_URL', plugin_dir_url(__FILE__));
-define('ANYFORM_JS_VERSION', '0.4.0');
+define('ANYFORM_JS_VERSION', '0.5.1');
 
 // Load classes
 require_once ANYFORM_PATH . 'includes/class-af-database.php';

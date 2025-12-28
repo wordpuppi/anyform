@@ -47,10 +47,12 @@ class AF_Settings {
             $result = wp_mail($to, $subject, $body, $headers);
         }
 
+        // translators: %s is the recipient email address
+        $success_message = sprintf(__('Test email sent to %s', 'anyform'), $to);
         wp_send_json([
             'success' => $result,
             'message' => $result
-                ? sprintf(__('Test email sent to %s', 'anyform'), $to)
+                ? $success_message
                 : __('Failed to send test email. Check your email configuration.', 'anyform'),
         ]);
     }

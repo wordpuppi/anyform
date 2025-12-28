@@ -106,7 +106,10 @@ class AF_Shortcode {
                    tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <?php foreach ($steps as $index => $step): ?>
-                <?php echo $this->render_step($step, $index, $index === 0); ?>
+                <?php
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_step handles escaping internally
+                echo $this->render_step($step, $index, $index === 0);
+                ?>
             <?php endforeach; ?>
 
             <div class="af-navigation">
@@ -136,8 +139,8 @@ class AF_Shortcode {
         ob_start();
         ?>
         <div class="af-step"
-             data-af-step="<?php echo (int) $index; ?>"
-             data-af-visible="<?php echo $visible ? 'true' : 'false'; ?>"
+             data-af-step="<?php echo esc_attr((int) $index); ?>"
+             data-af-visible="<?php echo esc_attr($visible ? 'true' : 'false'); ?>"
              <?php if ($condition): ?>data-af-condition='<?php echo esc_attr($condition); ?>'<?php endif; ?>>
 
             <?php if (!empty($step['name'])): ?>
@@ -149,7 +152,10 @@ class AF_Shortcode {
             <?php endif; ?>
 
             <?php foreach ($step['fields'] ?? [] as $field): ?>
-                <?php echo $this->render_field($field); ?>
+                <?php
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_field handles escaping internally
+                echo $this->render_field($field);
+                ?>
             <?php endforeach; ?>
         </div>
         <?php
@@ -191,7 +197,10 @@ class AF_Shortcode {
                 <?php endif; ?>
             </label>
 
-            <?php echo $this->render_input($field, $name, $placeholder, $required, $describedby); ?>
+            <?php
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_input handles escaping internally
+            echo $this->render_input($field, $name, $placeholder, $required, $describedby);
+            ?>
 
             <div class="af-error-message" id="af-error-<?php echo esc_attr($name); ?>" role="alert" aria-live="polite"></div>
 
@@ -208,9 +217,12 @@ class AF_Shortcode {
      */
     private function render_input($field, $name, $placeholder, $required, $describedby = '') {
         $type = $field['field_type'] ?? 'text';
+        // Escape all parameters for safe HTML output
+        $name = esc_attr($name);
+        $placeholder = esc_attr($placeholder);
         $req = $required ? 'required' : '';
         $aria_req = $required ? 'aria-required="true"' : '';
-        $aria_desc = $describedby ? "aria-describedby=\"{$describedby}\"" : '';
+        $aria_desc = $describedby ? 'aria-describedby="' . esc_attr($describedby) . '"' : '';
         $default = esc_attr($field['default_value'] ?? '');
 
         switch ($type) {
@@ -270,8 +282,8 @@ class AF_Shortcode {
         // CSS
         wp_enqueue_style('anyform-css', ANYFORM_URL . 'assets/css/anyform.css', [], ANYFORM_VERSION);
 
-        // WASM client from CDN
-        $js_url = 'https://cdn.jsdelivr.net/npm/@wordpuppi/anyform-wasm-js@' . ANYFORM_JS_VERSION . '/dist/index.js';
+        // WASM client - bundled locally (source: https://github.com/wordpuppi/anyform)
+        $js_url = ANYFORM_URL . 'assets/js/anyform-wasm.js';
 
         // Inline init script (ES module)
         ?>
