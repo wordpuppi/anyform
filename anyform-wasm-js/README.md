@@ -1,6 +1,8 @@
 # @wordpuppi/anyform-wasm-js
 
-Browser client for [anyform](https://github.com/wordpuppi/anyform) - form state management, validation, and multi-step navigation powered by WebAssembly.
+**Optional** WebAssembly engine for [anyform](https://github.com/wordpuppi/anyform) — faster validation for complex forms.
+
+> **Note:** This package is optional. `@wordpuppi/anyform-react` works out of the box with a pure JS engine. Only install this if you need WASM performance for large/complex forms.
 
 ## Installation
 
@@ -8,7 +10,18 @@ Browser client for [anyform](https://github.com/wordpuppi/anyform) - form state 
 npm install @wordpuppi/anyform-wasm-js
 ```
 
-## Quick Start
+## Usage with React
+
+```tsx
+import { useAnyForm } from '@wordpuppi/anyform-react';
+
+// Enable WASM engine
+const form = useAnyForm('contact', { engine: 'wasm' });
+```
+
+See `@wordpuppi/anyform-react` README for bundler configuration (Vite, Next.js, Webpack).
+
+## Direct Usage (Vanilla JS)
 
 ```typescript
 import init, { FormClient } from '@wordpuppi/anyform-wasm-js';

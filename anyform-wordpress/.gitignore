@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Dependencies
+vendor/
+node_modules/
+
+# Testing
+.phpunit.result.cache
+coverage/
+
+# WordPress
+wp-content/

@@ -1,6 +1,6 @@
 {
   "name": "@wordpuppi/anyform-react",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "React hooks for anyform - headless form state, validation, and multi-step navigation",
   "type": "module",
   "main": "./dist/index.js",

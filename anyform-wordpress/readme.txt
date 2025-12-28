@@ -2,7 +2,7 @@
 Contributors: anyformteam
 Tags: forms, contact form, multi-step form, json forms, dynamic forms
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 8.0
 Stable tag: 1.0.0
 License: MIT
