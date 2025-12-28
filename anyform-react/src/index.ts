@@ -28,6 +28,8 @@ export { useAnyForm } from './hooks/useAnyForm';
 
 // Components
 export { AnyForm } from './components/Form';
+export { AutoFormField } from './components/AutoFormField';
+export type { AutoFormFieldProps } from './components/AutoFormField';
 
 // Context
 export { AnyFormProvider, AnyFormContext } from './context/AnyFormProvider';

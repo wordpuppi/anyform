@@ -1,5 +1,10 @@
 # anyform
 
+[![Build](https://github.com/epenabella/anyform/actions/workflows/quick-check.yml/badge.svg)](https://github.com/epenabella/anyform/actions/workflows/quick-check.yml)
+[![Crates.io](https://img.shields.io/crates/v/anyform.svg)](https://crates.io/crates/anyform)
+[![npm](https://img.shields.io/npm/v/@anyform/react.svg)](https://www.npmjs.com/package/@anyform/react)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE-MIT)
+
 **Any database. Any form. Zero hassle.**
 
 A standalone form engine that runs anywhere. Install a single binary, connect your database (or use embedded SQLite), and get production-ready forms in seconds.

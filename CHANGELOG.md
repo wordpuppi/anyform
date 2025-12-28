@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.0] - 2025-12-XX
+## [0.4.0] - 2025-12-27
 
 ### Added
 
@@ -50,7 +50,7 @@ See [Migration Guide](docs/migration-0.4.0.md) for upgrading from 0.3.x.
 3. Rename tables: `anyform migrate --rename-tables`
 4. Update API URLs: `/forms/` → `/api/forms/`
 
-## [0.3.2] - 2025-12-XX
+## [0.3.2] - 2025-12-15
 
 ### Added
 
@@ -62,7 +62,7 @@ See [Migration Guide](docs/migration-0.4.0.md) for upgrading from 0.3.x.
 
 - Field ordering in multi-step forms
 
-## [0.3.1] - 2025-12-XX
+## [0.3.1] - 2025-12-08
 
 ### Added
 
@@ -73,7 +73,7 @@ See [Migration Guide](docs/migration-0.4.0.md) for upgrading from 0.3.x.
 
 - Validation for nested field options
 
-## [0.3.0] - 2025-12-XX
+## [0.3.0] - 2025-12-01
 
 ### Added
 
@@ -85,7 +85,7 @@ See [Migration Guide](docs/migration-0.4.0.md) for upgrading from 0.3.x.
 
 - Database schema for steps table
 
-## [0.2.0] - 2025-11-XX
+## [0.2.0] - 2025-11-15
 
 ### Added
 
@@ -93,7 +93,7 @@ See [Migration Guide](docs/migration-0.4.0.md) for upgrading from 0.3.x.
 - Form builder API
 - Tera template integration
 
-## [0.1.0] - 2025-10-XX
+## [0.1.0] - 2025-10-28
 
 ### Added
 

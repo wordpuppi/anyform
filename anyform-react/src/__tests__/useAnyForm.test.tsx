@@ -5,7 +5,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { useAnyForm } from '../hooks/useAnyForm';
-import { createMockSchema, createMultiStepSchema } from './mocks/anyform-js';
+import { createMockSchema, createMultiStepSchema } from './mocks/wasm-js';
 
 // Helper to create a successful fetch response
 function mockFetchSuccess(data: unknown) {
@@ -439,9 +439,9 @@ describe('useAnyForm', () => {
       expect(result.current.values.name).toBe('Modified');
       expect(result.current.touched.name).toBe(true);
 
-      // Reset
-      act(() => {
-        result.current.reset();
+      // Reset (reset is async)
+      await act(async () => {
+        await result.current.reset();
       });
 
       expect(result.current.values.name).toBe('Initial');

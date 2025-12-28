@@ -3,7 +3,7 @@
  *
  * Supports two engines:
  * - 'js': Pure TypeScript engine from @anyform/core (default, synchronous)
- * - 'wasm': WebAssembly engine from anyform-js (lazy-loaded)
+ * - 'wasm': WebAssembly engine from @anyform/wasm-js (lazy-loaded)
  */
 
 import { FormState as JsFormState } from '@anyform/core';
@@ -58,18 +58,18 @@ export interface IFormEngine {
 }
 
 // WASM module cache
-let wasmModule: typeof import('anyform-js') | null = null;
-let wasmInitPromise: Promise<typeof import('anyform-js')> | null = null;
+let wasmModule: typeof import('@anyform/wasm-js') | null = null;
+let wasmInitPromise: Promise<typeof import('@anyform/wasm-js')> | null = null;
 
 /**
  * Lazy-loads the WASM module.
  */
-async function loadWasmModule(): Promise<typeof import('anyform-js')> {
+async function loadWasmModule(): Promise<typeof import('@anyform/wasm-js')> {
   if (wasmModule) return wasmModule;
 
   if (!wasmInitPromise) {
     wasmInitPromise = (async () => {
-      const mod = await import('anyform-js');
+      const mod = await import('@anyform/wasm-js');
       await mod.default();
       wasmModule = mod;
       return mod;

@@ -36,6 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Hybrid REST + WASM approach**:
   - REST for initial schema fetch (SSR/RSC compatible)
-  - WASM (via anyform-js) for client-side validation and state management
+  - WASM (via @anyform/wasm-js) for client-side validation and state management
 - Form schema loaded from `/api/forms/{slug}/json` endpoint
 - Form submission to `/api/forms/{slug}` or custom `action_url`

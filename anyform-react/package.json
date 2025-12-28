@@ -34,7 +34,7 @@
     "@anyform/core": "file:../anyform-core"
   },
   "optionalDependencies": {
-    "anyform-js": "file:../anyform-js"
+    "@anyform/wasm-js": "file:../anyform-wasm-js"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.0",

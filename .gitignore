@@ -13,10 +13,11 @@ node_modules/
 .next/
 *.tsbuildinfo
 
-# Build outputs (keep anyform-js/dist/ for npm)
+# Build outputs
 anyform-core/dist/
 anyform-react/dist/
 anyform-next/dist/
+anyform-wasm-js/node_modules/
 
 # WASM build output (anyform-client)
 anyform-client/pkg/

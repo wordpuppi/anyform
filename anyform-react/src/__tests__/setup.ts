@@ -7,9 +7,9 @@
 import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
 
-// Mock anyform-js WASM module
-vi.mock('anyform-js', async () => {
-  const { MockFormState } = await import('./mocks/anyform-js');
+// Mock @anyform/wasm-js WASM module
+vi.mock('@anyform/wasm-js', async () => {
+  const { MockFormState } = await import('./mocks/wasm-js');
 
   return {
     default: vi.fn().mockResolvedValue(undefined),

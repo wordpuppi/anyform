@@ -8,7 +8,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { useAnyForm } from '../hooks/useAnyForm';
-import { createFieldTypesSchema, createMockSchema } from './mocks/anyform-js';
+import { createFieldTypesSchema, createMockSchema } from './mocks/wasm-js';
 
 describe('useAnyForm props helpers', () => {
   beforeEach(() => {

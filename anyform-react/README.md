@@ -8,15 +8,30 @@ React hooks for **anyform** — headless form state, validation, and multi-step 
 npm install @anyform/react
 ```
 
+**That's it!** No bundler configuration needed. The default JS engine works everywhere.
+
+### Optional: Enable WASM Engine
+
+For faster validation on large forms, install the optional WASM package:
+
+```bash
+npm install @anyform/wasm-js
+```
+
+```tsx
+const form = useAnyForm('contact', { engine: 'wasm' });
+```
+
+See [Bundler Configuration](#bundler-configuration) for WASM setup.
+
 ## Quick Start
 
 ```tsx
-import { useAnyForm } from '@anyform/react';
+import { useAnyForm, AutoFormField } from '@anyform/react';
 
 function ContactForm() {
   const form = useAnyForm('contact', {
     baseUrl: 'http://localhost:3000',
-    tailwind: true,
     onSuccess: (result) => console.log('Submitted!', result),
   });
 
@@ -26,13 +41,7 @@ function ContactForm() {
   return (
     <form {...form.getFormProps()}>
       {form.visibleFields.map((field) => (
-        <div key={field.name}>
-          <label {...form.getLabelProps(field.name)} />
-          <input {...form.getFieldProps(field.name)} />
-          {form.errors[field.name]?.map((err, i) => (
-            <span key={i} className="text-red-500">{err}</span>
-          ))}
-        </div>
+        <AutoFormField key={field.name} field={field} form={form} />
       ))}
       <button type="submit" disabled={form.isSubmitting}>
         {form.isSubmitting ? 'Submitting...' : 'Submit'}
@@ -44,12 +53,70 @@ function ContactForm() {
 
 ## Features
 
+- **Zero Config** — Works out of the box with pure JS engine
 - **Headless** — No styles, bring your own UI
-- **WASM-powered validation** — Instant client-side feedback
+- **Auto Field Rendering** — `<AutoFormField />` handles all field types
 - **Multi-step forms** — Built-in step navigation
 - **Conditional fields** — Show/hide based on other field values
+- **Optional WASM** — Faster validation with `@anyform/wasm-js`
 - **Tailwind optional** — Enable with `tailwind: true`
 - **TypeScript** — Full type definitions included
+
+## AutoFormField
+
+The `<AutoFormField />` component automatically renders the correct input type based on your field's `field_type`. No more switch statements!
+
+```tsx
+import { useAnyForm, AutoFormField } from '@anyform/react';
+
+function MyForm() {
+  const form = useAnyForm('my-form', { baseUrl: '...' });
+
+  return (
+    <form {...form.getFormProps()}>
+      {form.visibleFields.map((field) => (
+        <AutoFormField
+          key={field.name}
+          field={field}
+          form={form}
+          className="mb-4"
+          errorClassName="text-red-500 text-sm"
+        />
+      ))}
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `field` | `FieldJson` | Field definition from `form.visibleFields` |
+| `form` | `UseAnyFormReturn` | Form state from `useAnyForm` |
+| `className` | `string` | Class for wrapper div |
+| `errorClassName` | `string` | Class for error messages (default: `text-red-500 text-sm`) |
+| `renderField` | `(field, form) => ReactNode` | Custom render override |
+
+### Custom Field Rendering
+
+Override specific fields while using `AutoFormField` for the rest:
+
+```tsx
+{form.visibleFields.map((field) => (
+  <AutoFormField
+    key={field.name}
+    field={field}
+    form={form}
+    renderField={
+      field.name === 'custom_field'
+        ? (f, form) => <MyCustomInput field={f} form={form} />
+        : undefined
+    }
+  />
+))}
+```
 
 ## API Reference
 
@@ -60,6 +127,7 @@ Main hook for form state management.
 ```tsx
 const form = useAnyForm('my-form', {
   baseUrl: 'http://localhost:3000',  // API base URL
+  engine: 'js',                       // 'js' (default) or 'wasm'
   tailwind: true,                     // Enable Tailwind classes
   initialValues: { email: '' },       // Pre-fill values
   initialSchema: schema,              // SSR hydration (skip fetch)
@@ -126,7 +194,9 @@ const form = useAnyForm('my-form', {
 | `isFieldVisible(name)` | Check if a field is visible |
 | `isStepVisible(stepId)` | Check if a step is visible |
 
-## Field Type Examples
+## Manual Field Rendering
+
+If you prefer full control over field rendering, use the props helpers directly:
 
 ### Text Input
 
@@ -203,7 +273,7 @@ function WizardForm() {
       <div>Step {form.step.progress[0]} of {form.step.progress[1]}</div>
 
       {form.visibleFields.map((field) => (
-        <input key={field.name} {...form.getFieldProps(field.name)} />
+        <AutoFormField key={field.name} field={field} form={form} />
       ))}
 
       <div>
@@ -291,12 +361,38 @@ import type {
   UseAnyFormOptions,
   UseAnyFormReturn,
   FieldMeta,
+  AutoFormFieldProps,
 } from '@anyform/react';
 ```
 
-## Bundler Configuration
+## Troubleshooting
 
-This package uses WASM (via `anyform-js`). Most modern bundlers support WASM, but may need configuration.
+### Form not loading / infinite loading
+
+1. Check that `baseUrl` is correct
+2. Verify the API is running: `curl {baseUrl}/api/forms/{slug}/json`
+3. Check browser console for CORS errors
+
+### "Failed to load WASM module" (only with `engine: 'wasm'`)
+
+This only affects WASM users. The default JS engine requires no config.
+
+**Solutions:**
+1. Vite: Install `vite-plugin-wasm` (see Bundler Configuration)
+2. Next.js: Add `asyncWebAssembly: true` to webpack config
+3. CRA: Use craco (see Bundler Configuration)
+
+Or just use the default JS engine (no config needed).
+
+### Validation errors not showing
+
+1. Ensure `form.isLoading` is `false` before interacting
+2. Check that field is touched: `form.touched[fieldName]`
+3. Validation runs on blur/change by default
+
+## Bundler Configuration (WASM Only)
+
+Only needed if using `engine: 'wasm'`. The default JS engine works without any configuration.
 
 ### Vite
 
@@ -308,7 +404,7 @@ import wasm from 'vite-plugin-wasm';
 export default defineConfig({
   plugins: [wasm()],
   optimizeDeps: {
-    exclude: ['anyform-js'],
+    exclude: ['@anyform/wasm-js'],
   },
 });
 ```
