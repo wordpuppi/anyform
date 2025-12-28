@@ -30,6 +30,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Build anyform-core
+        working-directory: anyform-core
+        run: |
+          npm install
+          npm run build
+
       - name: Install dependencies
         working-directory: anyform-react
         run: npm install
@@ -61,6 +67,18 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Build anyform-core
+        working-directory: anyform-core
+        run: |
+          npm install
+          npm run build
+
+      - name: Build anyform-react
+        working-directory: anyform-react
+        run: |
+          npm install
+          npm run build
+
       - name: Install dependencies
         working-directory: anyform-next
         run: npm install
@@ -82,11 +100,21 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Build anyform-core
+        working-directory: anyform-core
+        run: |
+          npm install
+          npm run build
+
       - name: Install and check @wordpuppi/anyform-react
         working-directory: anyform-react
         run: |
           npm install
           npx tsc --noEmit
+
+      - name: Build anyform-react
+        working-directory: anyform-react
+        run: npm run build
 
       - name: Install and check @wordpuppi/anyform-next
         working-directory: anyform-next
