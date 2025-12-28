@@ -8,7 +8,7 @@ use axum::{routing::get, Router};
 use clap::{Parser, Subcommand};
 use http::{header, Method};
 use sea_orm::{Database, DatabaseConnection};
-use sea_orm_anyform::migration::MigratorTrait;
+use anyform::MigratorTrait;
 use std::path::PathBuf;
 use tokio::net::TcpListener;
 use tower::ServiceBuilder;

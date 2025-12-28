@@ -26,7 +26,7 @@ jobs:
             name: anyform-linux-arm64
             cross: true
           - target: x86_64-apple-darwin
-            os: macos-13-large
+            os: macos-15
             name: anyform-darwin-amd64
             cross: false
           - target: aarch64-apple-darwin
@@ -174,7 +174,13 @@ jobs:
       - name: Publish @wordpuppi/anyform-core
         run: |
           cd anyform-core
-          npm publish --access public
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if npm view "$PKG_NAME@$PKG_VERSION" version 2>/dev/null; then
+            echo "Version $PKG_VERSION already published, skipping"
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -187,7 +193,13 @@ jobs:
       - name: Publish @wordpuppi/anyform-wasm-js
         run: |
           cd anyform-wasm-js
-          npm publish --access public
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if npm view "$PKG_NAME@$PKG_VERSION" version 2>/dev/null; then
+            echo "Version $PKG_VERSION already published, skipping"
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -200,7 +212,13 @@ jobs:
       - name: Publish @wordpuppi/anyform-react
         run: |
           cd anyform-react
-          npm publish --access public
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if npm view "$PKG_NAME@$PKG_VERSION" version 2>/dev/null; then
+            echo "Version $PKG_VERSION already published, skipping"
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -213,6 +231,12 @@ jobs:
       - name: Publish @wordpuppi/anyform-next
         run: |
           cd anyform-next
-          npm publish --access public
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if npm view "$PKG_NAME@$PKG_VERSION" version 2>/dev/null; then
+            echo "Version $PKG_VERSION already published, skipping"
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
