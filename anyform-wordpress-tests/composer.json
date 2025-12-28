@@ -1,7 +1,7 @@
 {
-    "name": "anyform/anyform-wordpress",
-    "description": "Dynamic forms powered by @wordpuppi/anyform-wasm-js",
-    "type": "wordpress-plugin",
+    "name": "anyform/anyform-wordpress-tests",
+    "description": "PHPUnit tests for the Anyform WordPress plugin",
+    "type": "project",
     "license": "MIT",
     "require": {
         "php": ">=8.0"

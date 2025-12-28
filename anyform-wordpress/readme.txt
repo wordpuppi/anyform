@@ -1,5 +1,5 @@
-=== Anyform ===
-Contributors: anyformteam
+=== Anyform by Wordpuppi ===
+Contributors: wordpuppi
 Tags: forms, contact form, multi-step form, json forms, dynamic forms
 Requires at least: 6.0
 Tested up to: 6.9

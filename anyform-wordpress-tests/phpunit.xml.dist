@@ -16,11 +16,12 @@
         <const name="WP_TESTS_DOMAIN" value="localhost"/>
         <const name="WP_TESTS_EMAIL" value="test@localhost"/>
         <const name="WP_TESTS_TITLE" value="Test Blog"/>
+        <const name="ANYFORM_PLUGIN_DIR" value="../anyform-wordpress"/>
     </php>
     <coverage>
         <include>
-            <directory suffix=".php">./includes/</directory>
-            <file>./anyform.php</file>
+            <directory suffix=".php">../anyform-wordpress/includes/</directory>
+            <file>../anyform-wordpress/anyform.php</file>
         </include>
     </coverage>
 </phpunit>

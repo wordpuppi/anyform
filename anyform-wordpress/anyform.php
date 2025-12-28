@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Anyform
+ * Plugin Name: Anyform by Wordpuppi
  * Plugin URI: https://github.com/wordpuppi/anyform
- * Description: Dynamic forms powered by @wordpuppi/anyform-wasm-js
+ * Description: Dynamic forms powered by JSON schemas and WebAssembly.
  * Version: 1.0.0
  * Requires at least: 6.0
  * Requires PHP: 8.0
- * Author: Anyform Team
+ * Author: Wordpuppi
  * License: MIT
  * Text Domain: anyform
  */
