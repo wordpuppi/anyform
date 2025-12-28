@@ -164,52 +164,52 @@ jobs:
         run: |
           cp -r anyform-client/pkg/* anyform-wasm-js/wasm/
 
-      - name: Build @anyform/core
+      - name: Build @wordpuppi/anyform-core
         run: |
           cd anyform-core
           npm ci
           npm run build
 
-      - name: Publish @anyform/core
+      - name: Publish @wordpuppi/anyform-core
         run: |
           cd anyform-core
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build @anyform/wasm-js
+      - name: Build @wordpuppi/anyform-wasm-js
         run: |
           cd anyform-wasm-js
           npm ci
           npm run build
 
-      - name: Publish @anyform/wasm-js
+      - name: Publish @wordpuppi/anyform-wasm-js
         run: |
           cd anyform-wasm-js
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build @anyform/react
+      - name: Build @wordpuppi/anyform-react
         run: |
           cd anyform-react
           npm ci
           npm run build
 
-      - name: Publish @anyform/react
+      - name: Publish @wordpuppi/anyform-react
         run: |
           cd anyform-react
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build @anyform/next
+      - name: Build @wordpuppi/anyform-next
         run: |
           cd anyform-next
           npm ci
           npm run build
 
-      - name: Publish @anyform/next
+      - name: Publish @wordpuppi/anyform-next
         run: |
           cd anyform-next
           npm publish --access public

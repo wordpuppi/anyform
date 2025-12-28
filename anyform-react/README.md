@@ -1,11 +1,11 @@
-# @anyform/react
+# @wordpuppi/anyform-react
 
 React hooks for **anyform** — headless form state, validation, and multi-step navigation.
 
 ## Installation
 
 ```bash
-npm install @anyform/react
+npm install @wordpuppi/anyform-react
 ```
 
 **That's it!** No bundler configuration needed. The default JS engine works everywhere.
@@ -15,7 +15,7 @@ npm install @anyform/react
 For faster validation on large forms, install the optional WASM package:
 
 ```bash
-npm install @anyform/wasm-js
+npm install @wordpuppi/anyform-wasm-js
 ```
 
 ```tsx
@@ -27,7 +27,7 @@ See [Bundler Configuration](#bundler-configuration) for WASM setup.
 ## Quick Start
 
 ```tsx
-import { useAnyForm, AutoFormField } from '@anyform/react';
+import { useAnyForm, AutoFormField } from '@wordpuppi/anyform-react';
 
 function ContactForm() {
   const form = useAnyForm('contact', {
@@ -58,7 +58,7 @@ function ContactForm() {
 - **Auto Field Rendering** — `<AutoFormField />` handles all field types
 - **Multi-step forms** — Built-in step navigation
 - **Conditional fields** — Show/hide based on other field values
-- **Optional WASM** — Faster validation with `@anyform/wasm-js`
+- **Optional WASM** — Faster validation with `@wordpuppi/anyform-wasm-js`
 - **Tailwind optional** — Enable with `tailwind: true`
 - **TypeScript** — Full type definitions included
 
@@ -67,7 +67,7 @@ function ContactForm() {
 The `<AutoFormField />` component automatically renders the correct input type based on your field's `field_type`. No more switch statements!
 
 ```tsx
-import { useAnyForm, AutoFormField } from '@anyform/react';
+import { useAnyForm, AutoFormField } from '@wordpuppi/anyform-react';
 
 function MyForm() {
   const form = useAnyForm('my-form', { baseUrl: '...' });
@@ -296,7 +296,7 @@ function WizardForm() {
 For app-wide configuration:
 
 ```tsx
-import { AnyFormProvider } from '@anyform/react';
+import { AnyFormProvider } from '@wordpuppi/anyform-react';
 
 function App() {
   return (
@@ -313,7 +313,7 @@ function App() {
 Alternative to the hook:
 
 ```tsx
-import { AnyForm } from '@anyform/react';
+import { AnyForm } from '@wordpuppi/anyform-react';
 
 <AnyForm slug="contact" options={{ tailwind: true }}>
   {(form) => (
@@ -362,7 +362,7 @@ import type {
   UseAnyFormReturn,
   FieldMeta,
   AutoFormFieldProps,
-} from '@anyform/react';
+} from '@wordpuppi/anyform-react';
 ```
 
 ## Troubleshooting
@@ -404,7 +404,7 @@ import wasm from 'vite-plugin-wasm';
 export default defineConfig({
   plugins: [wasm()],
   optimizeDeps: {
-    exclude: ['@anyform/wasm-js'],
+    exclude: ['@wordpuppi/anyform-wasm-js'],
   },
 });
 ```
@@ -426,7 +426,7 @@ module.exports = {
 };
 ```
 
-Or use `@anyform/next` which handles this automatically.
+Or use `@wordpuppi/anyform-next` which handles this automatically.
 
 ### Webpack 5
 

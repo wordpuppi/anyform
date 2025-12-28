@@ -1,5 +1,5 @@
 {
-  "name": "@anyform/wasm-js",
+  "name": "@wordpuppi/anyform-wasm-js",
   "version": "0.5.0",
   "description": "WASM bindings for anyform - form state, validation, and navigation",
   "type": "module",

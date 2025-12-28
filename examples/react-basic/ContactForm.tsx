@@ -1,11 +1,11 @@
 /**
  * Basic Contact Form Example
  *
- * This example demonstrates how to use @anyform/react to build
+ * This example demonstrates how to use @wordpuppi/anyform-react to build
  * a contact form with validation and error handling.
  */
 
-import { useAnyForm } from '@anyform/react';
+import { useAnyForm } from '@wordpuppi/anyform-react';
 
 export function ContactForm() {
   const form = useAnyForm('contact', {

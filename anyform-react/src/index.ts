@@ -1,12 +1,12 @@
 /**
- * @anyform/react - React hooks for anyform
+ * @wordpuppi/anyform-react - React hooks for anyform
  *
  * Provides headless form state, validation, and multi-step navigation
  * for React applications.
  *
  * @example
  * ```tsx
- * import { useAnyForm } from '@anyform/react';
+ * import { useAnyForm } from '@wordpuppi/anyform-react';
  *
  * function ContactForm() {
  *   const form = useAnyForm('contact', { tailwind: true });

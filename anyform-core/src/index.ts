@@ -1,5 +1,5 @@
 /**
- * @anyform/core - Pure TypeScript form validation and state management
+ * @wordpuppi/anyform-core - Pure TypeScript form validation and state management
  *
  * This package provides the core form engine for anyform, including:
  * - FormState class for managing form values, validation, and multi-step navigation
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { FormState } from '@anyform/core';
+ * import { FormState } from '@wordpuppi/anyform-core';
  *
  * const state = new FormState(schema);
  * state.set_value('email', 'user@example.com');

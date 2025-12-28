@@ -1,18 +1,18 @@
-# @anyform/next
+# @wordpuppi/anyform-next
 
 Next.js integration for **anyform** — React Server Components and Server Actions support.
 
 ## Installation
 
 ```bash
-npm install @anyform/next
+npm install @wordpuppi/anyform-next
 ```
 
 ## Quick Start (App Router)
 
 ```tsx
 // app/contact/page.tsx
-import { AnyFormRSC } from '@anyform/next';
+import { AnyFormRSC } from '@wordpuppi/anyform-next';
 
 export default function ContactPage() {
   return (
@@ -43,7 +43,7 @@ export default function ContactPage() {
 - **React Server Components** — Form schema fetched on the server
 - **Server Actions** — Optional server-side form submission
 - **ISR Support** — Schema cached with revalidation
-- **Re-exports @anyform/react** — All hooks and types included
+- **Re-exports @wordpuppi/anyform-react** — All hooks and types included
 
 ## API Reference
 
@@ -52,7 +52,7 @@ export default function ContactPage() {
 React Server Component that fetches form schema on the server and hydrates on the client.
 
 ```tsx
-import { AnyFormRSC } from '@anyform/next';
+import { AnyFormRSC } from '@wordpuppi/anyform-next';
 
 <AnyFormRSC
   slug="contact"                    // Form slug (required)
@@ -69,10 +69,10 @@ import { AnyFormRSC } from '@anyform/next';
 
 ### Server Functions
 
-Import from `@anyform/next/server`:
+Import from `@wordpuppi/anyform-next/server`:
 
 ```tsx
-import { fetchFormSchema, submitForm } from '@anyform/next/server';
+import { fetchFormSchema, submitForm } from '@wordpuppi/anyform-next/server';
 ```
 
 #### `fetchFormSchema(slug, baseUrl?)`
@@ -81,7 +81,7 @@ Cached server-side form schema fetcher. Uses React's `cache()` for deduplication
 
 ```tsx
 // app/forms/[slug]/page.tsx
-import { fetchFormSchema } from '@anyform/next/server';
+import { fetchFormSchema } from '@wordpuppi/anyform-next/server';
 import { ClientForm } from './client-form';
 
 export default async function FormPage({ params }: { params: { slug: string } }) {
@@ -99,7 +99,7 @@ Server Action for form submission.
 // app/contact/actions.ts
 'use server';
 
-import { submitForm } from '@anyform/next/server';
+import { submitForm } from '@wordpuppi/anyform-next/server';
 
 export async function handleSubmit(values: Record<string, unknown>) {
   const result = await submitForm('contact', values);
@@ -118,7 +118,7 @@ export async function handleSubmit(values: Record<string, unknown>) {
 // app/contact/form.tsx
 'use client';
 
-import { useAnyForm } from '@anyform/next';
+import { useAnyForm } from '@wordpuppi/anyform-next';
 import { handleSubmit } from './actions';
 
 function ContactForm({ initialSchema }) {
@@ -150,7 +150,7 @@ Best for SEO and initial load performance.
 
 ```tsx
 // app/contact/page.tsx
-import { AnyFormRSC } from '@anyform/next';
+import { AnyFormRSC } from '@wordpuppi/anyform-next';
 
 export default function ContactPage() {
   return (
@@ -167,7 +167,7 @@ For more control over the data fetching.
 
 ```tsx
 // app/contact/page.tsx
-import { fetchFormSchema } from '@anyform/next/server';
+import { fetchFormSchema } from '@wordpuppi/anyform-next/server';
 import { ContactForm } from './form';
 
 export default async function ContactPage() {
@@ -179,7 +179,7 @@ export default async function ContactPage() {
 // app/contact/form.tsx
 'use client';
 
-import { useAnyForm } from '@anyform/next';
+import { useAnyForm } from '@wordpuppi/anyform-next';
 
 export function ContactForm({ schema }) {
   const form = useAnyForm('contact', {
@@ -198,7 +198,7 @@ For dynamic forms or when RSC isn't needed.
 ```tsx
 'use client';
 
-import { useAnyForm } from '@anyform/next';
+import { useAnyForm } from '@wordpuppi/anyform-next';
 
 export function ContactForm() {
   const form = useAnyForm('contact', { tailwind: true });
@@ -215,8 +215,8 @@ For server-side form submission.
 
 ```tsx
 // app/contact/page.tsx
-import { AnyFormRSC } from '@anyform/next';
-import { submitForm } from '@anyform/next/server';
+import { AnyFormRSC } from '@wordpuppi/anyform-next';
+import { submitForm } from '@wordpuppi/anyform-next/server';
 
 async function handleSubmit(values: Record<string, unknown>) {
   'use server';
@@ -240,7 +240,7 @@ export default function ContactPage() {
 
 ## Multi-Step Forms
 
-Works the same as `@anyform/react`:
+Works the same as `@wordpuppi/anyform-react`:
 
 ```tsx
 <AnyFormRSC slug="onboarding">
@@ -271,7 +271,7 @@ Works the same as `@anyform/react`:
 
 ## Re-exports
 
-This package re-exports everything from `@anyform/react`:
+This package re-exports everything from `@wordpuppi/anyform-react`:
 
 ```tsx
 import {
@@ -291,7 +291,7 @@ import {
   type FieldJson,
   type UseAnyFormReturn,
   // ... etc
-} from '@anyform/next';
+} from '@wordpuppi/anyform-next';
 ```
 
 ## TypeScript
@@ -302,11 +302,11 @@ Full type definitions included:
 import type {
   AnyFormRSCProps,
   AnyFormClientProps,
-} from '@anyform/next';
+} from '@wordpuppi/anyform-next';
 
 import type {
   SubmitFormResult,
-} from '@anyform/next/server';
+} from '@wordpuppi/anyform-next/server';
 ```
 
 ## License

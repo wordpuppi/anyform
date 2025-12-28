@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to @anyform/react will be documented in this file.
+All notable changes to @wordpuppi/anyform-react will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -36,6 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Hybrid REST + WASM approach**:
   - REST for initial schema fetch (SSR/RSC compatible)
-  - WASM (via @anyform/wasm-js) for client-side validation and state management
+  - WASM (via @wordpuppi/anyform-wasm-js) for client-side validation and state management
 - Form schema loaded from `/api/forms/{slug}/json` endpoint
 - Form submission to `/api/forms/{slug}` or custom `action_url`

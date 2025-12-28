@@ -1,7 +1,7 @@
 /**
- * Server exports for @anyform/next
+ * Server exports for @wordpuppi/anyform-next
  *
- * Import from '@anyform/next/server' for RSC and Server Actions.
+ * Import from '@wordpuppi/anyform-next/server' for RSC and Server Actions.
  */
 
 export { fetchFormSchema, fetchFormSchemaNoCache } from './fetchForm';

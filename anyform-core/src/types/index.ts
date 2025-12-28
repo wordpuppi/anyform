@@ -1,5 +1,5 @@
 /**
- * Type exports for @anyform/core
+ * Type exports for @wordpuppi/anyform-core
  */
 
 export type {

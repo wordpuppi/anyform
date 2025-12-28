@@ -4,7 +4,7 @@
  * Ensures the WASM module is initialized only once across the application.
  */
 
-import init from '@anyform/wasm-js';
+import init from '@wordpuppi/anyform-wasm-js';
 
 let wasmInitialized = false;
 let wasmInitPromise: Promise<void> | null = null;

@@ -1,30 +1,30 @@
 # anyform Examples
 
-Example implementations for `@anyform/react` and `@anyform/next`.
+Example implementations for `@wordpuppi/anyform-react` and `@wordpuppi/anyform-next`.
 
 ## Examples
 
 ### React Basic
 
-Simple React examples using `@anyform/react`:
+Simple React examples using `@wordpuppi/anyform-react`:
 
 - **[ContactForm.tsx](./react-basic/ContactForm.tsx)** - Basic contact form with all field types
 - **[MultiStepForm.tsx](./react-basic/MultiStepForm.tsx)** - Multi-step wizard with progress indicator
 
 ```bash
 # Usage (in your React project)
-npm install @anyform/react
+npm install @wordpuppi/anyform-react
 ```
 
 ### Next.js App Router
 
-Next.js 14+ examples using `@anyform/next`:
+Next.js 14+ examples using `@wordpuppi/anyform-next`:
 
 - **[app/contact/page.tsx](./nextjs-app-router/app/contact/page.tsx)** - RSC-powered contact form
 
 ```bash
 # Usage (in your Next.js project)
-npm install @anyform/next
+npm install @wordpuppi/anyform-next
 ```
 
 ## Running Examples

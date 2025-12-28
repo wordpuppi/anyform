@@ -18,7 +18,7 @@ on:
 
 jobs:
   test-react:
-    name: Test @anyform/react
+    name: Test @wordpuppi/anyform-react
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +50,7 @@ jobs:
         continue-on-error: true
 
   test-next:
-    name: Test @anyform/next
+    name: Test @wordpuppi/anyform-next
     runs-on: ubuntu-latest
     needs: test-react
 
@@ -86,13 +86,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install and check @anyform/react
+      - name: Install and check @wordpuppi/anyform-react
         working-directory: anyform-react
         run: |
           npm ci
           npx tsc --noEmit
 
-      - name: Install and check @anyform/next
+      - name: Install and check @wordpuppi/anyform-next
         working-directory: anyform-next
         run: |
           npm ci

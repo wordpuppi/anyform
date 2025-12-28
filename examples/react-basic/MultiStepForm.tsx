@@ -1,11 +1,11 @@
 /**
  * Multi-Step Form Example
  *
- * This example demonstrates how to use @anyform/react to build
+ * This example demonstrates how to use @wordpuppi/anyform-react to build
  * a multi-step wizard form with progress indicator.
  */
 
-import { useAnyForm } from '@anyform/react';
+import { useAnyForm } from '@wordpuppi/anyform-react';
 
 export function MultiStepForm() {
   const form = useAnyForm('onboarding', {

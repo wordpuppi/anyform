@@ -1,5 +1,5 @@
 /**
- * Mock for @anyform/wasm-js FormState
+ * Mock for @wordpuppi/anyform-wasm-js FormState
  *
  * Provides a JavaScript implementation of FormState for testing
  * without loading the actual WASM module.

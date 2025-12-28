@@ -24,7 +24,7 @@ export interface AutoFormFieldProps {
  *
  * @example
  * ```tsx
- * import { useAnyForm, AutoFormField } from '@anyform/react';
+ * import { useAnyForm, AutoFormField } from '@wordpuppi/anyform-react';
  *
  * function ContactForm() {
  *   const form = useAnyForm('contact', { baseUrl: '...' });

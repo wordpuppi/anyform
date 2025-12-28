@@ -6,7 +6,7 @@
  * These run on the server and can be called directly from client components.
  */
 
-import type { SubmissionResponse, ApiError } from '@anyform/react';
+import type { SubmissionResponse, ApiError } from '@wordpuppi/anyform-react';
 
 /** Result type for submitForm action */
 export type SubmitFormResult =
@@ -19,7 +19,7 @@ export type SubmitFormResult =
  * @example
  * ```tsx
  * 'use client';
- * import { submitForm } from '@anyform/next/server';
+ * import { submitForm } from '@wordpuppi/anyform-next/server';
  *
  * function ContactForm() {
  *   const handleSubmit = async (values) => {

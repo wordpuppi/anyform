@@ -12,7 +12,7 @@ import type { AnyFormProps } from '../types';
  *
  * @example
  * ```tsx
- * import { AnyForm } from '@anyform/react';
+ * import { AnyForm } from '@wordpuppi/anyform-react';
  *
  * function ContactPage() {
  *   return (

@@ -6,8 +6,8 @@
  * Used internally by AnyFormRSC to handle client-side interactivity.
  */
 
-import { AnyForm } from '@anyform/react';
-import type { UseAnyFormOptions, UseAnyFormReturn, FormJson } from '@anyform/react';
+import { AnyForm } from '@wordpuppi/anyform-react';
+import type { UseAnyFormOptions, UseAnyFormReturn, FormJson } from '@wordpuppi/anyform-react';
 
 export interface AnyFormClientProps {
   slug: string;

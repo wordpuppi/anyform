@@ -5,7 +5,7 @@
  */
 
 import { cache } from 'react';
-import type { FormJson } from '@anyform/react';
+import type { FormJson } from '@wordpuppi/anyform-react';
 
 /**
  * Fetches a form schema from the anyform API.
@@ -16,7 +16,7 @@ import type { FormJson } from '@anyform/react';
  * @example
  * ```tsx
  * // app/forms/[slug]/page.tsx
- * import { fetchFormSchema } from '@anyform/next/server';
+ * import { fetchFormSchema } from '@wordpuppi/anyform-next/server';
  *
  * export default async function FormPage({ params }) {
  *   const schema = await fetchFormSchema(params.slug);

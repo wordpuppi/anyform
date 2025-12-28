@@ -1,5 +1,5 @@
 /**
- * Type definitions for @anyform/react
+ * Type definitions for @wordpuppi/anyform-react
  */
 
 /** Field option for select/radio/checkbox fields */

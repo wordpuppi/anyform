@@ -6,7 +6,7 @@
 
 import { fetchFormSchema } from '../server/fetchForm';
 import { AnyFormClient } from './AnyFormClient';
-import type { UseAnyFormOptions, UseAnyFormReturn } from '@anyform/react';
+import type { UseAnyFormOptions, UseAnyFormReturn } from '@wordpuppi/anyform-react';
 
 export interface AnyFormRSCProps {
   /** Form slug to fetch */
@@ -26,7 +26,7 @@ export interface AnyFormRSCProps {
  * @example
  * ```tsx
  * // app/contact/page.tsx
- * import { AnyFormRSC } from '@anyform/next';
+ * import { AnyFormRSC } from '@wordpuppi/anyform-next';
  *
  * export default function ContactPage() {
  *   return (

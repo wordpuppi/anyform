@@ -1,11 +1,11 @@
 /**
  * Next.js App Router Example - Contact Form
  *
- * This example demonstrates how to use @anyform/next with
+ * This example demonstrates how to use @wordpuppi/anyform-next with
  * React Server Components for optimal performance.
  */
 
-import { AnyFormRSC } from '@anyform/next';
+import { AnyFormRSC } from '@wordpuppi/anyform-next';
 
 export default function ContactPage() {
   return (
@@ -19,7 +19,7 @@ export default function ContactPage() {
   );
 }
 
-function ContactFormUI({ form }: { form: ReturnType<typeof import('@anyform/next').useAnyForm> }) {
+function ContactFormUI({ form }: { form: ReturnType<typeof import('@wordpuppi/anyform-next').useAnyForm> }) {
   // Success state
   if (form.isSubmitted) {
     return (
@@ -81,7 +81,7 @@ function SelectField({
   form,
   name,
 }: {
-  form: ReturnType<typeof import('@anyform/next').useAnyForm>;
+  form: ReturnType<typeof import('@wordpuppi/anyform-next').useAnyForm>;
   name: string;
 }) {
   const props = form.getSelectProps(name);

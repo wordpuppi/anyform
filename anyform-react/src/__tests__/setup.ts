@@ -7,8 +7,8 @@
 import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
 
-// Mock @anyform/wasm-js WASM module
-vi.mock('@anyform/wasm-js', async () => {
+// Mock @wordpuppi/anyform-wasm-js WASM module
+vi.mock('@wordpuppi/anyform-wasm-js', async () => {
   const { MockFormState } = await import('./mocks/wasm-js');
 
   return {

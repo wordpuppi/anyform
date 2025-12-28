@@ -18,7 +18,7 @@ export const AnyFormContext = createContext<AnyFormContextValue | null>(null);
  *
  * @example
  * ```tsx
- * import { AnyFormProvider } from '@anyform/react';
+ * import { AnyFormProvider } from '@wordpuppi/anyform-react';
  *
  * function App() {
  *   return (

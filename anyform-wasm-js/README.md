@@ -1,4 +1,4 @@
-# @anyform/wasm-js
+# @wordpuppi/anyform-wasm-js
 
 Browser client for [anyform](https://github.com/wordpuppi/anyform) - form state management, validation, and multi-step navigation powered by WebAssembly.
 

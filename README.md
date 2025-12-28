@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/wordpuppi/anyform/actions/workflows/quick-check.yml/badge.svg)](https://github.com/wordpuppi/anyform/actions/workflows/quick-check.yml)
 [![Crates.io](https://img.shields.io/crates/v/anyform.svg)](https://crates.io/crates/anyform)
-[![npm](https://img.shields.io/npm/v/@anyform/react.svg)](https://www.npmjs.com/package/@anyform/react)
+[![npm](https://img.shields.io/npm/v/@wordpuppi/anyform-react.svg)](https://www.npmjs.com/package/@wordpuppi/anyform-react)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE-MIT)
 
 **Any database. Any form. Zero hassle.**

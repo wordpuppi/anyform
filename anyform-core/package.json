@@ -1,5 +1,5 @@
 {
-  "name": "@anyform/core",
+  "name": "@wordpuppi/anyform-core",
   "version": "0.5.0",
   "description": "Pure TypeScript form validation, condition evaluation, and state management for anyform",
   "type": "module",
