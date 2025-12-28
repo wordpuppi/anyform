@@ -269,7 +269,7 @@ class AF_Shortcode {
         wp_enqueue_style('anyform-css', ANYFORM_URL . 'assets/css/anyform.css', [], ANYFORM_VERSION);
 
         // WASM client from CDN
-        $js_url = 'https://cdn.jsdelivr.net/npm/anyform-js@' . ANYFORM_JS_VERSION . '/dist/index.js';
+        $js_url = 'https://cdn.jsdelivr.net/npm/@wordpuppi/anyform-wasm-js@' . ANYFORM_JS_VERSION . '/dist/index.js';
 
         // Inline init script (ES module)
         ?>

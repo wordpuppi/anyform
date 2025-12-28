@@ -167,6 +167,30 @@ See README.md for a full list of available CSS variables.
 * Submission storage and management
 * CSS custom properties for easy theming
 
+== External Services ==
+
+This plugin connects to the following third-party services:
+
+**jsDelivr CDN**
+
+The Anyform JavaScript library is loaded from jsDelivr CDN to power client-side form validation and rendering.
+
+* Service URL: https://cdn.jsdelivr.net/npm/@wordpuppi/anyform-wasm-js/
+* Terms of Use: https://www.jsdelivr.com/terms
+* Privacy Policy: https://www.jsdelivr.com/privacy-policy-jsdelivr-net
+
+**Email APIs (Optional)**
+
+If you configure external email delivery in Anyform > Settings, the plugin will send data to your chosen provider:
+
+* SendGrid: https://sendgrid.com/policies/privacy/
+* Mailgun: https://www.mailgun.com/legal/privacy-policy/
+* Custom API: Your configured endpoint
+
+**Webhooks (Optional)**
+
+If you configure an Action URL for a form, submission data will be sent to that external URL.
+
 == Upgrade Notice ==
 
 = 1.0.0 =

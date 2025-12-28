@@ -4,9 +4,10 @@ version = "0.4.0"
 edition = "2021"
 description = "WASM client for anyform - browser-side form handling"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/anyform-dev/anyform"
+repository = "https://github.com/wordpuppi/anyform"
 keywords = ["wasm", "forms", "validation", "client"]
 categories = ["wasm", "web-programming"]
+publish = false
 
 [lib]
 crate-type = ["cdylib", "rlib"]

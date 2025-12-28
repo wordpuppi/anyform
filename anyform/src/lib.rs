@@ -34,6 +34,7 @@ pub mod condition;
 pub mod entities;
 pub mod error;
 pub mod extractors;
+pub mod migration;
 pub mod response;
 pub mod schema;
 pub mod seed;

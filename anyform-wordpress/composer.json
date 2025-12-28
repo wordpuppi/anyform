@@ -1,6 +1,6 @@
 {
     "name": "anyform/anyform-wordpress",
-    "description": "Dynamic forms powered by anyform-js WASM client",
+    "description": "Dynamic forms powered by @wordpuppi/anyform-wasm-js",
     "type": "wordpress-plugin",
     "license": "MIT",
     "require": {

@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Multi-step navigation with automatic hidden step skipping
   - Progress tracking for multi-step forms
   - Hydration mode for server-rendered HTML forms
-- **npm package** (`anyform-js`) with TypeScript bindings
+- **npm package** (`@wordpuppi/anyform-wasm-js`) with TypeScript bindings
 - **Distribution** via brew, curl, scoop, Docker
 - GitHub Actions release workflow with cross-compilation
 - Auto-migrations on server startup

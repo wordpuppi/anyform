@@ -8,7 +8,7 @@ use axum::{routing::get, Router};
 use clap::{Parser, Subcommand};
 use http::{header, Method};
 use sea_orm::{Database, DatabaseConnection};
-use sea_orm_migration::MigratorTrait;
+use sea_orm_anyform::migration::MigratorTrait;
 use std::path::PathBuf;
 use tokio::net::TcpListener;
 use tower::ServiceBuilder;
@@ -168,7 +168,7 @@ async fn main() -> Result<()> {
 
             // Run migrations
             println!("Running migrations...");
-            migration::Migrator::up(&db, None).await?;
+            anyform::migration::Migrator::up(&db, None).await?;
 
             // Seed if requested
             if seed {
@@ -190,7 +190,7 @@ async fn main() -> Result<()> {
 
             if status {
                 println!("Migration status:");
-                let migrations = migration::Migrator::get_pending_migrations(&db).await?;
+                let migrations = anyform::migration::Migrator::get_pending_migrations(&db).await?;
                 if migrations.is_empty() {
                     println!("  All migrations applied.");
                 } else {
@@ -201,16 +201,16 @@ async fn main() -> Result<()> {
                 }
             } else if down {
                 println!("Rolling back last migration...");
-                migration::Migrator::down(&db, Some(1)).await?;
+                anyform::migration::Migrator::down(&db, Some(1)).await?;
                 println!("Done.");
             } else if rename_tables {
                 // Run just the rename migration
                 println!("Renaming tables from asf_ to af_...");
-                migration::Migrator::up(&db, None).await?;
+                anyform::migration::Migrator::up(&db, None).await?;
                 println!("Done. Tables renamed to af_ prefix.");
             } else if up {
                 println!("Running migrations...");
-                migration::Migrator::up(&db, None).await?;
+                anyform::migration::Migrator::up(&db, None).await?;
                 println!("Done.");
             }
         }
@@ -266,7 +266,7 @@ async fn main() -> Result<()> {
 
             // Run migrations first
             println!("Running migrations...");
-            migration::Migrator::up(&db, None).await?;
+            anyform::migration::Migrator::up(&db, None).await?;
 
             // Build anyform router
             let mut builder = AnyFormRouter::builder().database(db);

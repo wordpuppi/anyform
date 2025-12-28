@@ -1,12 +1,12 @@
 /**
- * anyform-js - Browser client for anyform
+ * @wordpuppi/anyform-wasm-js - Browser client for anyform
  *
  * Provides form state management, validation, and multi-step navigation
  * powered by WebAssembly.
  *
  * @example
  * ```typescript
- * import init, { FormClient } from 'anyform-js';
+ * import init, { FormClient } from '@wordpuppi/anyform-wasm-js';
  *
  * await init();
  *

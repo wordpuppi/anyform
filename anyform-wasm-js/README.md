@@ -5,13 +5,13 @@ Browser client for [anyform](https://github.com/wordpuppi/anyform) - form state 
 ## Installation
 
 ```bash
-npm install anyform-js
+npm install @wordpuppi/anyform-wasm-js
 ```
 
 ## Quick Start
 
 ```typescript
-import init, { FormClient } from 'anyform-js';
+import init, { FormClient } from '@wordpuppi/anyform-wasm-js';
 
 async function main() {
   // Initialize WASM
@@ -62,7 +62,7 @@ For server-rendered forms, use automatic hydration:
 
 ```html
 <script type="module">
-  import init, { hydrate_all } from 'anyform-js';
+  import init, { hydrate_all } from '@wordpuppi/anyform-wasm-js';
 
   await init();
   hydrate_all(); // Hydrates all forms with data-af-form attribute

@@ -67,6 +67,81 @@ anyform serve
 - **Multi-database**: SQLite, PostgreSQL, MySQL via SeaORM
 - **WASM client**: Browser-side validation and navigation
 
+## Platform Integrations
+
+```mermaid
+flowchart TB
+    subgraph RS["Rust Library"]
+        RS1["cargo add anyform"] --> RS2[Connect SeaORM DB]
+        RS2 --> RS3["FormBuilder::create()"]
+        RS3 --> RS4["AnyFormRouter::builder()"]
+        RS4 --> RS5[Router::new.merge]
+        RS5 --> RS6[axum::serve]
+    end
+
+    subgraph WP["WordPress"]
+        WP1[Upload plugin] --> WP2[Activate in Admin]
+        WP2 --> WP3[Create Form post]
+        WP3 --> WP4["[anyform slug='contact']"]
+        WP4 --> WP5[POST /wp-json/anyform/v1/forms/slug]
+        WP5 --> WP6[Email + DB storage]
+    end
+
+    subgraph NJ["Next.js"]
+        NJ1[npm install @wordpuppi/anyform-next] --> NJ2["AnyFormRSC"]
+        NJ2 --> NJ3[Server-side schema fetch]
+        NJ3 --> NJ4[Client hydration]
+        NJ4 --> NJ5[Server Action: submitForm]
+        NJ5 --> NJ6[POST to API]
+    end
+
+    subgraph RC["React"]
+        RC1[npm install @wordpuppi/anyform-react] --> RC2["useAnyForm()"]
+        RC2 --> RC3[Fetch schema]
+        RC3 --> RC4[AutoFormField]
+        RC4 --> RC5[form.submit]
+        RC5 --> RC6[POST /api/forms/slug]
+    end
+
+    subgraph CLI["CLI"]
+        CLI1[brew / curl / cargo install] --> CLI2[anyform init]
+        CLI2 --> CLI3[anyform seed]
+        CLI3 --> CLI4[anyform serve :3000]
+        CLI4 --> CLI5[anyform submissions list]
+        CLI5 --> CLI6[anyform submissions export]
+    end
+
+    subgraph DK["Docker"]
+        DK1[docker run ghcr.io/wordpuppi/anyform] --> DK2[Mount /data volume]
+        DK2 --> DK3[DATABASE_URL env]
+        DK3 --> DK4[API ready :3000]
+    end
+
+    subgraph API["Anyform API"]
+        A1[GET /api/forms/slug/json]
+        A2[GET /api/forms/slug]
+        A3[POST /api/forms/slug]
+        A4[Admin CRUD /api/admin/*]
+    end
+
+    RS6 --> API
+    CLI4 --> API
+    DK4 --> API
+
+    RC6 --> A3
+    NJ6 --> A3
+    WP5 -.->|webhook| A3
+```
+
+| Platform | Install | Define Forms | Render | Submit |
+|----------|---------|--------------|--------|--------|
+| **Rust** | `cargo add anyform` | `FormBuilder::create()` | `AnyFormRouter` | Axum handlers |
+| **WordPress** | Plugin upload | Post type editor | `[anyform]` shortcode | WP REST + email |
+| **Next.js** | `npm i @wordpuppi/anyform-next` | JSON on server | `<AnyFormRSC>` | Server Actions |
+| **React** | `npm i @wordpuppi/anyform-react` | Fetch from API | `useAnyForm` hook | `form.submit()` |
+| **CLI** | brew/curl/cargo | `form create --file` | `form render` | `serve` mode |
+| **Docker** | `docker run` | API or mount | API endpoints | `POST /api/forms` |
+
 ## CLI Commands
 
 ```
