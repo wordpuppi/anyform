@@ -54,6 +54,15 @@ pub struct FormSettings {
     /// Additional custom settings as JSON.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom: Option<serde_json::Value>,
+
+    /// Whether to send a confirmation email to the submitter.
+    /// Requires an email field in the form.
+    #[serde(default)]
+    pub send_confirmation: bool,
+
+    /// URL to POST submission data to (webhook).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub webhook_url: Option<String>,
 }
 
 impl FormSettings {
@@ -133,6 +142,20 @@ impl FormSettings {
     #[must_use]
     pub fn method(mut self, method: impl Into<String>) -> Self {
         self.method = Some(method.into());
+        self
+    }
+
+    /// Sets whether to send a confirmation email to the submitter.
+    #[must_use]
+    pub fn send_confirmation(mut self, send: bool) -> Self {
+        self.send_confirmation = send;
+        self
+    }
+
+    /// Sets the webhook URL to POST submission data to.
+    #[must_use]
+    pub fn webhook_url(mut self, url: impl Into<String>) -> Self {
+        self.webhook_url = Some(url.into());
         self
     }
 }

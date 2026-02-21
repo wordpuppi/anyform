@@ -42,6 +42,10 @@ pub struct HtmlOptions {
     pub multi_step: Option<bool>,
     /// Whether to include inline CSS for multi-step forms.
     pub include_styles: bool,
+    /// Whether to use fetch API for form submission (AJAX, no page navigation).
+    pub use_fetch: bool,
+    /// Success message to show after submission (only used with use_fetch).
+    pub success_message: Option<String>,
 }
 
 impl HtmlOptions {
@@ -101,6 +105,20 @@ impl HtmlOptions {
         self.include_styles = include;
         self
     }
+
+    /// Whether to use fetch API for form submission (AJAX, no page navigation).
+    #[must_use]
+    pub fn use_fetch(mut self, use_fetch: bool) -> Self {
+        self.use_fetch = use_fetch;
+        self
+    }
+
+    /// Sets a custom success message for fetch submissions.
+    #[must_use]
+    pub fn success_message(mut self, message: impl Into<String>) -> Self {
+        self.success_message = Some(message.into());
+        self
+    }
 }
 
 /// Inline CSS for multi-step forms.
@@ -113,6 +131,45 @@ const MULTI_STEP_CSS: &str = r#"<style>
 .af-field .af-error-message { color: var(--af-error, #ef4444); font-size: 0.875rem; }
 </style>
 "#;
+
+/// JavaScript for fetch-based form submission.
+fn fetch_submit_js(form_slug: &str, success_message: &str) -> String {
+    format!(r#"<script>
+(function() {{
+  const form = document.querySelector('[data-af-form="{form_slug}"]');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {{
+    e.preventDefault();
+    const btn = form.querySelector('[type="submit"]');
+    const origText = btn ? btn.textContent : '';
+    if (btn) {{ btn.disabled = true; btn.textContent = 'Submitting...'; }}
+    try {{
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const res = await fetch(form.action, {{
+        method: 'POST',
+        headers: {{ 'Content-Type': 'application/json' }},
+        body: JSON.stringify(data)
+      }});
+      const json = await res.json();
+      if (json.success) {{
+        const msg = document.createElement('div');
+        msg.className = 'af-success';
+        msg.textContent = json.message || '{success_message}';
+        form.innerHTML = '';
+        form.appendChild(msg);
+      }} else {{
+        alert(json.error || 'Submission failed');
+        if (btn) {{ btn.disabled = false; btn.textContent = origText; }}
+      }}
+    }} catch (err) {{
+      alert('Network error: ' + err.message);
+      if (btn) {{ btn.disabled = false; btn.textContent = origText; }}
+    }}
+  }});
+}})();
+</script>"#)
+}
 
 /// Renders forms to HTML.
 pub struct HtmlRenderer;
@@ -164,13 +221,13 @@ impl HtmlRenderer {
             html.push_str(MULTI_STEP_CSS);
         }
 
-        // Form opening tag
-        let default_action = format!("/forms/{}", form.slug);
+        // Form action - default to forms/{slug}/submit if not explicitly set
         let action = options
             .action
             .as_deref()
             .or(settings.action_url.as_deref())
-            .unwrap_or(&default_action);
+            .map(String::from)
+            .unwrap_or_else(|| format!("forms/{}/submit", form.slug));
 
         let method = options
             .method
@@ -195,9 +252,12 @@ impl HtmlRenderer {
             form_class.push_str(custom_class);
         }
 
+        // Build action attribute
+        let action_attr = format!(" action=\"{action}\"");
+
         writeln!(
             html,
-            "<form method=\"{method}\" action=\"{action}\"{enctype} class=\"{form_class}\" data-af-form=\"{}\">",
+            "<form method=\"{method}\"{action_attr}{enctype} class=\"{form_class}\" data-af-form=\"{}\">",
             form.slug
         )
         .unwrap();
@@ -258,6 +318,15 @@ impl HtmlRenderer {
         }
 
         writeln!(html, "</form>").unwrap();
+
+        // Fetch-based submission script
+        if options.use_fetch {
+            let success_msg = options
+                .success_message
+                .as_deref()
+                .unwrap_or("Thank you for your submission!");
+            html.push_str(&fetch_submit_js(&form.slug, success_msg));
+        }
 
         Ok(html)
     }

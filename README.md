@@ -7,7 +7,36 @@
 
 **Any database. Any form. Zero hassle.**
 
-A standalone form engine that runs anywhere. Install a single binary, connect your database (or use embedded SQLite), and get production-ready forms in seconds.
+A schema-driven form engine where forms live in your database, not your code. Change fields, add steps, update logic—no deploys required.
+
+## Why Anyform?
+
+**The problem:** Most form solutions hardcode forms in your frontend. Every field change requires a developer, a PR, and a deploy. Enterprise form builders solve this but cost $200+/year.
+
+**Anyform's approach:** Define forms once as JSON/database records. Deploy to any platform—React, Next.js, WordPress, vanilla JS—from one source of truth.
+
+### Use Cases
+
+| If you need... | Anyform gives you... |
+|----------------|----------------------|
+| Forms that non-devs can update | Schema-driven forms stored in DB, no code changes |
+| Multi-step wizards with conditional logic | Built-in step management, field/step conditions |
+| Surveys, quizzes, NPS scoring | Rating fields, scoring, result buckets |
+| Same form on multiple platforms | One schema → React, Next.js, WordPress, API |
+| WPForms Pro features without $199/year | Free WordPress plugin with full feature parity |
+
+### Who It's For
+
+- **App developers** building SaaS with user-configurable forms
+- **WordPress users** who need multi-step/conditional forms without paid plugins
+- **Teams** where marketing/ops need to iterate on forms without engineering
+- **Headless CMS projects** serving forms via API
+
+### Who It's Not For
+
+- Simple static contact forms (use React Hook Form + a webhook)
+- Drag-and-drop visual builders (Anyform uses JSON schemas)
+- File uploads or payments (not yet supported)
 
 ## Installation
 
@@ -211,9 +240,12 @@ anyform = "0.4"
 ```
 
 ```rust
-use anyform::{AnyFormRouter, FormBuilder, CreateFormInput, ValueType};
+use anyform::{AnyFormRouter, FormBuilder, CreateFormInput, ValueType, init_schema};
 use axum::Router;
 use sea_orm::DatabaseConnection;
+
+// Initialize schema (alternative to migrations, safe to call multiple times)
+init_schema(&db).await?;
 
 // Add anyform routes to your Axum app
 let app = Router::new()
@@ -225,6 +257,28 @@ let form = FormBuilder::create(&db, CreateFormInput::new("contact")
     .with_step("main", |step| step
         .with_field("email", "Email", ValueType::Email)
         .with_field("message", "Message", ValueType::Textarea)
+    )
+).await?;
+```
+
+### Embedded Usage
+
+For embedding anyform into an existing application with its own database, use `init_schema` instead of migrations:
+
+```rust
+use anyform::{init_schema, FormBuilder, CreateFormInput};
+use sea_orm::Database;
+
+// Connect to your existing database
+let db = Database::connect("sqlite:my_app.db").await?;
+
+// Initialize anyform tables (idempotent, safe to call on every startup)
+init_schema(&db).await?;
+
+// Now use anyform normally
+let form = FormBuilder::create(&db, CreateFormInput::new("contact", "contact-form")
+    .step(CreateStepInput::new("Main")
+        .field(CreateFieldInput::new("email", "Email", "email").required())
     )
 ).await?;
 ```

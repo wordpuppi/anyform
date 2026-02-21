@@ -34,6 +34,7 @@ pub mod condition;
 pub mod entities;
 pub mod error;
 pub mod extractors;
+pub mod init;
 pub mod migration;
 pub mod response;
 pub mod schema;
@@ -55,6 +56,9 @@ pub mod commands;
 
 // Re-export migrations
 pub use migration::{Migrator, MigratorTrait};
+
+// Re-export schema initialization
+pub use init::init_schema;
 
 // Re-export core types
 pub use entities::{
