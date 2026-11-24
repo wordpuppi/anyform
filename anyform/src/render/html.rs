@@ -46,6 +46,8 @@ pub struct HtmlOptions {
     pub use_fetch: bool,
     /// Success message to show after submission (only used with use_fetch).
     pub success_message: Option<String>,
+    /// Cloudflare Turnstile site key. When set, injects the Turnstile widget and CDN script.
+    pub turnstile_site_key: Option<String>,
 }
 
 impl HtmlOptions {
@@ -117,6 +119,16 @@ impl HtmlOptions {
     #[must_use]
     pub fn success_message(mut self, message: impl Into<String>) -> Self {
         self.success_message = Some(message.into());
+        self
+    }
+
+    /// Sets the Cloudflare Turnstile site key.
+    ///
+    /// When set, the HTML renderer will inject the Turnstile widget div
+    /// and CDN script into the rendered form.
+    #[must_use]
+    pub fn turnstile_site_key(mut self, key: impl Into<String>) -> Self {
+        self.turnstile_site_key = Some(key.into());
         self
     }
 }
@@ -289,6 +301,11 @@ impl HtmlRenderer {
             .await?;
         }
 
+        // Inject Turnstile widget before submit button if configured
+        if let Some(site_key) = &options.turnstile_site_key {
+            writeln!(html, "  <div class=\"cf-turnstile\" data-sitekey=\"{}\"></div>", site_key).unwrap();
+        }
+
         // Navigation buttons (multi-step) or submit button (single-step)
         if is_multi_step {
             Self::render_navigation(&mut html, &settings.submit_label_or_default(), options);
@@ -318,6 +335,11 @@ impl HtmlRenderer {
         }
 
         writeln!(html, "</form>").unwrap();
+
+        // Turnstile CDN script (placed after </form> to avoid nesting issues)
+        if options.turnstile_site_key.is_some() {
+            writeln!(html, "<script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js\" async defer></script>").unwrap();
+        }
 
         // Fetch-based submission script
         if options.use_fetch {
