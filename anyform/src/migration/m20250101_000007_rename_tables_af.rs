@@ -274,6 +274,12 @@ impl MigrationTrait for Migration {
                 db.execute_unprepared("ALTER TABLE af_results ADD CONSTRAINT fk_af_results_form FOREIGN KEY (form_id) REFERENCES af_forms(id) ON DELETE CASCADE")
                     .await?;
             }
+            _ => {
+                return Err(DbErr::BackendNotSupported {
+                    db: "unknown",
+                    ctx: "rename_tables_af",
+                })
+            }
         }
 
         Ok(())
@@ -470,6 +476,12 @@ impl MigrationTrait for Migration {
 
                 // Similar index and FK recreation as up() but reversed
                 // (Omitted for brevity - same pattern as up() but swapping af_ and asf_)
+            }
+            _ => {
+                return Err(DbErr::BackendNotSupported {
+                    db: "unknown",
+                    ctx: "rename_tables_af",
+                })
             }
         }
 

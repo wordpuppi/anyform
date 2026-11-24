@@ -3,9 +3,9 @@ resolver = "2"
 members = ["anyform", "anyform-client"]
 
 [workspace.package]
-version = "0.5.3"
+version = "0.6.0"
 edition = "2021"
-rust-version = "1.75"
+rust-version = "1.94"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/wordpuppi/anyform"
 keywords = ["anyform", "forms", "database", "web", "survey"]
@@ -20,8 +20,8 @@ tower-sessions = "0.14"
 http = "1.0"
 
 # Database
-sea-orm = { version = "1.1", features = ["sqlx-sqlite", "sqlx-postgres", "sqlx-mysql", "runtime-tokio-rustls", "macros"] }
-sea-orm-migration = { version = "1.1", features = ["sqlx-sqlite", "sqlx-postgres", "sqlx-mysql", "runtime-tokio-rustls"] }
+sea-orm = { version = "2.0", features = ["sqlx-sqlite", "sqlx-postgres", "sqlx-mysql", "runtime-tokio-rustls", "macros"] }
+sea-orm-migration = { version = "2.0", features = ["sqlx-sqlite", "sqlx-postgres", "sqlx-mysql", "runtime-tokio-rustls"] }
 
 # Templating
 tera = "1.19"

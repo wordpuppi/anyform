@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-24
+
+### Changed
+
+- **Breaking:** moved to SeaORM 2.0 and sea-orm-migration 2.0 (sqlx 0.9). Apps that use anyform must be on SeaORM 2 as well.
+- Minimum supported Rust version is now 1.94, which SeaORM 2 requires.
+- `init_schema` runs its SQL through `execute_raw`, the SeaORM 2 name for raw statements.
+- `init_schema` and the `rename_tables_af` migration return `DbErr::BackendNotSupported` for a database backend other than SQLite, PostgreSQL or MySQL, since SeaORM 2's backend enum is no longer exhaustive.
+- Tera stays on 1.x, so form templates written for 0.5 still render unchanged.
+
+### Fixed
+
+- Tests and the `basic_form` example import the migrator from `anyform` instead of the old standalone `migration` crate.
+- Updated the contact-form JSON snapshot for the `send_confirmation` setting added in 0.5.2.
+
 ## [0.4.0] - 2025-12-27
 
 ### Added

@@ -27,10 +27,16 @@ pub async fn init_schema(db: &DatabaseConnection) -> Result<(), DbErr> {
         sea_orm::DatabaseBackend::Sqlite => sqlite_schema(),
         sea_orm::DatabaseBackend::Postgres => postgres_schema(),
         sea_orm::DatabaseBackend::MySql => mysql_schema(),
+        _ => {
+            return Err(DbErr::BackendNotSupported {
+                db: "unknown",
+                ctx: "init_schema",
+            })
+        }
     };
 
     for sql in statements {
-        db.execute(sea_orm::Statement::from_string(backend, sql.to_string()))
+        db.execute_raw(sea_orm::Statement::from_string(backend, sql.to_string()))
             .await?;
     }
 

@@ -1,6 +1,6 @@
 //! In-memory SQLite database setup for testing.
 
-use migration::MigratorTrait;
+use anyform::MigratorTrait;
 use sea_orm::{Database, DatabaseConnection};
 
 /// A test database wrapper that provides an in-memory SQLite connection.
@@ -15,7 +15,7 @@ impl TestDb {
             .await
             .expect("Failed to connect to in-memory SQLite");
 
-        migration::Migrator::up(&db, None)
+        anyform::Migrator::up(&db, None)
             .await
             .expect("Failed to run migrations");
 

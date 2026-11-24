@@ -3,7 +3,7 @@
 //! Run with: cargo run --example basic_form
 
 use anyform::AnyFormRouter;
-use migration::{Migrator, MigratorTrait};
+use anyform::{Migrator, MigratorTrait};
 use sea_orm::Database;
 
 #[tokio::main]
